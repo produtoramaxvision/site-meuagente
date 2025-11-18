@@ -50,7 +50,7 @@ const FaqSection = () => {
   ];
 
   return (
-    <section className="py-24 bg-background">
+    <section className="py-24 bg-background section-texture-soft">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-16">

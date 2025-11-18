@@ -63,11 +63,11 @@ export default defineConfig(({ mode }) => {
   return {
     server: serverConfig,
     plugins: [react(), isDevelopment && componentTagger()].filter(Boolean),
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "./src"),
-      },
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
     },
+  },
     // Configurações de build otimizadas
     build: {
       target: "esnext",

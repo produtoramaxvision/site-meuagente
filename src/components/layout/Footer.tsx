@@ -57,98 +57,123 @@ const Footer = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Main footer content */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-8 mb-12">
-          {/* Brand column */}
-          <div className="col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <img 
-                src="/meuagente_logo_transparente-preto.png" 
-                alt="Meu Agente" 
-                className="h-16 sm:h-20 w-auto"
-              />
-            </div>
-            <p className="text-sm text-text-muted mb-6 max-w-xs">
-              Transforme seu WhatsApp em uma equipe de Agentes de IA trabalhando 24/7 para automatizar seu negócio.
-            </p>
-            
-            {/* Contact info */}
-            <div className="space-y-2 mb-6">
-              <a href="mailto:contato@meuagente.com" className="flex items-center gap-2 text-sm text-text-muted hover:text-text transition-colors">
-                <Mail className="w-4 h-4" />
-                contato@meuagente.com
-              </a>
-              <a href="tel:+5511951182561" className="flex items-center gap-2 text-sm text-text-muted hover:text-text transition-colors">
-                <Phone className="w-4 h-4" />
-                (11) 95118-2561
-              </a>
-            </div>
+        <div className="mb-12">
+          {/* Logo centralizado em tablet/desktop e mobile */}
+          <div className="flex justify-center mb-8">
+            <img
+              src="/logo-horizontal-preto.png"
+              alt="Meu Agente"
+              className="h-16 sm:h-20 w-auto"
+            />
+          </div>
 
-            {/* Social links */}
-            <div className="flex items-center gap-3">
-              {socialLinks.map((social) => (
+          {/* Grid responsivo: texto/contato + menus alinhados na horizontal */}
+          <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-10">
+            {/* Texto e contato */}
+            <div className="flex flex-col items-center md:items-start text-center md:text-left md:max-w-sm">
+              <p className="text-sm text-text-muted mb-6">
+                Transforme seu WhatsApp em uma equipe de Agentes de IA trabalhando 24/7 para automatizar seu negócio.
+              </p>
+
+              {/* Contact info */}
+              <div className="space-y-2 mb-6">
                 <a
-                  key={social.label}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="w-9 h-9 rounded-lg bg-background/50 backdrop-blur-sm border border-border/50 flex items-center justify-center hover:bg-surface hover:border-brand-900/30 transition-all duration-300 hover:scale-110"
+                  href="mailto:contato@meuagente.api.br"
+                  className="flex items-center gap-2 text-sm text-text-muted hover:text-text transition-colors"
                 >
-                  <social.icon className="w-4 h-4 text-text-muted" />
+                  <Mail className="w-4 h-4" />
+                  contato@meuagente.api.br
                 </a>
-              ))}
+                <a
+                  href="tel:+5511951182561"
+                  className="flex items-center gap-2 text-sm text-text-muted hover:text-text transition-colors"
+                >
+                  <Phone className="w-4 h-4" />
+                  (11) 95118-2561
+                </a>
+              </div>
+
+              {/* Social links */}
+              <div className="flex items-center gap-3 justify-center md:justify-start">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    aria-label={social.label}
+                    className="w-9 h-9 rounded-lg bg-background/50 backdrop-blur-sm border border-border/50 flex items-center justify-center hover:bg-surface hover:border-brand-900/30 transition-all duration-300 hover:scale-110"
+                  >
+                    <social.icon className="w-4 h-4 text-text-muted" />
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* Link columns */}
-          <div>
-            <h3 className="font-semibold text-text mb-4 text-sm">Produto</h3>
-            <ul className="space-y-2">
-              {footerLinks.produto.map((link) => (
-                <li key={link.name}>
-                  <a href={link.href} className="text-sm text-text-muted hover:text-text transition-colors">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+            {/* Menus – alinhados à altura do texto em md+ */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 flex-1">
+              <div>
+                <h3 className="font-semibold text-text mb-4 text-sm">Produto</h3>
+                <ul className="space-y-2">
+                  {footerLinks.produto.map((link) => (
+                    <li key={link.name}>
+                      <a
+                        href={link.href}
+                        className="text-sm text-text-muted hover:text-text transition-colors"
+                      >
+                        {link.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-          <div>
-            <h3 className="font-semibold text-text mb-4 text-sm">Recursos</h3>
-            <ul className="space-y-2">
-              {footerLinks.recursos.map((link) => (
-                <li key={link.name}>
-                  <a href={link.href} className="text-sm text-text-muted hover:text-text transition-colors">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+              <div>
+                <h3 className="font-semibold text-text mb-4 text-sm">Recursos</h3>
+                <ul className="space-y-2">
+                  {footerLinks.recursos.map((link) => (
+                    <li key={link.name}>
+                      <a
+                        href={link.href}
+                        className="text-sm text-text-muted hover:text-text transition-colors"
+                      >
+                        {link.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-          <div>
-            <h3 className="font-semibold text-text mb-4 text-sm">Empresa</h3>
-            <ul className="space-y-2">
-              {footerLinks.empresa.map((link) => (
-                <li key={link.name}>
-                  <a href={link.href} className="text-sm text-text-muted hover:text-text transition-colors">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+              <div>
+                <h3 className="font-semibold text-text mb-4 text-sm">Empresa</h3>
+                <ul className="space-y-2">
+                  {footerLinks.empresa.map((link) => (
+                    <li key={link.name}>
+                      <a
+                        href={link.href}
+                        className="text-sm text-text-muted hover:text-text transition-colors"
+                      >
+                        {link.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
 
-          <div>
-            <h3 className="font-semibold text-text mb-4 text-sm">Legal</h3>
-            <ul className="space-y-2">
-              {footerLinks.legal.map((link) => (
-                <li key={link.name}>
-                  <a href={link.href} className="text-sm text-text-muted hover:text-text transition-colors">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+              <div>
+                <h3 className="font-semibold text-text mb-4 text-sm">Legal</h3>
+                <ul className="space-y-2">
+                  {footerLinks.legal.map((link) => (
+                    <li key={link.name}>
+                      <a
+                        href={link.href}
+                        className="text-sm text-text-muted hover:text-text transition-colors"
+                      >
+                        {link.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
 
