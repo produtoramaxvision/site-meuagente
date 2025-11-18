@@ -159,6 +159,10 @@ export default {
           "25%": { transform: "translateX(-10px)" },
           "75%": { transform: "translateX(10px)" },
         },
+        "pulse-slow": {
+          "0%, 100%": { transform: "scale(1)", opacity: "1" },
+          "50%": { transform: "scale(1.05)", opacity: "0.9" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -168,6 +172,7 @@ export default {
         "shimmer": "shimmer 2s infinite",
         "float": "float 3s ease-in-out infinite",
         "shake": "shake 0.3s ease-in-out",
+        "pulse-slow": "pulse-slow 3s ease-in-out infinite",
       },
     },
   },
