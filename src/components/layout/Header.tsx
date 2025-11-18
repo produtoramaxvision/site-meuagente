@@ -21,10 +21,11 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <a href="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-900 to-brand-700 flex items-center justify-center">
-                <span className="text-white font-bold text-sm">MA</span>
-              </div>
-              <span className="text-xl font-bold text-gradient">Meu Agente</span>
+              <img 
+                src="/meuagente_logo_transparente-preto.png" 
+                alt="Meu Agente" 
+                className="h-16 sm:h-20 w-auto"
+              />
             </a>
           </div>
 

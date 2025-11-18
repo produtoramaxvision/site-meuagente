@@ -77,7 +77,7 @@ export const createArticleSchema = (article: {
     "name": "Meu Agente",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://meuagente.com/logo.png",
+      "url": "https://meuagente.com/meuagente_logo_transparente-preto.png",
     },
   },
   "datePublished": article.datePublished,
@@ -95,7 +95,7 @@ export const createOrganizationSchema = () => ({
   "name": "Meu Agente",
   "description": "Agentes de IA no WhatsApp para automação de negócios",
   "url": "https://meuagente.com",
-  "logo": "https://meuagente.com/logo.png",
+  "logo": "https://meuagente.com/meuagente_logo_transparente-preto.png",
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+55-11-99999-9999",
