@@ -338,7 +338,9 @@ const Planos = () => {
                         </p>
                       </div>
                       <div className="text-left sm:text-center">
-                        <p className="text-xs text-text-muted mb-1">Recuperação de leads</p>
+                        <p className="text-xs text-text-muted mb-1 whitespace-nowrap">
+                          Recuperação de leads
+                        </p>
                         <p className="text-2xl font-bold text-success">
                           R$ {roi.leadRecovery.toLocaleString("pt-BR")}
                         </p>
@@ -364,6 +366,11 @@ const Planos = () => {
                   </div>
                 </div>
               </div>
+              <p className="mt-4 text-[11px] text-text-muted leading-relaxed">
+                * <strong>ROI (Retorno sobre Investimento)</strong> é a relação entre o que você ganha e o que investe,
+                expresso em porcentagem. Em termos simples: quanto maior o ROI, maior a economia ou o ganho financeiro em
+                comparação ao custo do plano.
+              </p>
             </Card>
           </div>
         </section>
@@ -386,10 +393,16 @@ const Planos = () => {
 
             <Tabs defaultValue="plans" className="w-full">
               <TabsList className="mx-auto mb-12 md:mb-14 flex w-full max-w-md justify-center">
-                <TabsTrigger value="plans" className="flex-1">
+                <TabsTrigger
+                  value="plans"
+                  className="flex-1 rounded-full text-xs sm:text-sm font-medium data-[state=active]:bg-background data-[state=active]:text-text data-[state=active]:shadow-md data-[state=active]:border border-transparent"
+                >
                   Visão por plano
                 </TabsTrigger>
-                <TabsTrigger value="comparison" className="flex-1">
+                <TabsTrigger
+                  value="comparison"
+                  className="flex-1 rounded-full text-xs sm:text-sm font-medium data-[state=active]:bg-background data-[state=active]:text-text data-[state=active]:shadow-md data-[state=active]:border border-transparent"
+                >
                   Comparação detalhada
                 </TabsTrigger>
               </TabsList>
