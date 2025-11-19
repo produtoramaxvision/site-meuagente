@@ -18,7 +18,7 @@ const Footer = () => {
     empresa: [
       { name: "Sobre Nós", href: "#" },
       { name: "Contato", href: "/contato" },
-      { name: "Trabalhe Conosco", href: "#" },
+      { name: "Trabalhe Conosco", href: "/trabalhe-conosco" },
       { name: "Parceiros", href: "#" },
     ],
     legal: [
