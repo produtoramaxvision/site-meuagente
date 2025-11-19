@@ -111,3 +111,38 @@ export const createOrganizationSchema = () => ({
   ],
 });
 
+export const createUserGuideHowToSchema = (params: {
+  title: string;
+  description: string;
+  url: string;
+  lastUpdated: string;
+  sections: { title: string; anchor: string }[];
+}) => {
+  // Converte datas no formato brasileiro (dd/mm/aaaa) para ISO (aaaa-mm-dd)
+  const [day, month, year] = params.lastUpdated.split("/").map((part) => part.trim());
+  const isoDate =
+    year && month && day
+      ? `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`
+      : undefined;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": ["HowTo", "TechArticle"],
+    name: params.title,
+    headline: params.title,
+    description: params.description,
+    inLanguage: "pt-BR",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": params.url,
+    },
+    ...(isoDate ? { dateModified: isoDate } : {}),
+    step: params.sections.map((section, index) => ({
+      "@type": "HowToStep",
+      position: index + 1,
+      name: section.title,
+      url: `${params.url}#${section.anchor}`,
+    })),
+  };
+};
+

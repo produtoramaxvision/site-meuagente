@@ -262,6 +262,63 @@ Recomendamos que você **revise periodicamente** esta Política de Privacidade. 
 
 ---
 
-Se restar qualquer dúvida sobre esta Política de Privacidade ou sobre a forma como tratamos seus dados pessoais, entre em contato pelos nossos canais oficiais indicados acima.
+## Cookies e Tecnologias Semelhantes
+
+### O que são cookies?
+
+Cookies são pequenos arquivos de texto armazenados no seu navegador quando você visita um site. Eles podem ser usados para lembrar suas preferências, entender como você navega e melhorar a segurança e a experiência de uso da plataforma.
+
+Além de cookies, também podemos utilizar tecnologias semelhantes, como pixels, tags e identificadores de dispositivo, com finalidades semelhantes às descritas abaixo.
+
+### Quais tipos de cookies utilizamos?
+
+De forma geral, os cookies utilizados na Plataforma Meu Agente podem ser classificados em:
+
+- **Cookies estritamente necessários**  
+  - Essenciais para o funcionamento do site e da Plataforma (por exemplo, manter sua sessão ativa, carregar recursos básicos, garantir segurança).  
+  - Sem esses cookies, alguns serviços podem não funcionar corretamente.  
+
+- **Cookies de desempenho e analytics**  
+  - Utilizados para entender como os visitantes utilizam o site (páginas mais acessadas, tempo de permanência, origem do tráfego etc.).  
+  - Ajudam a melhorar conteúdo, usabilidade e desempenho da Plataforma.  
+  - Sempre que possível, são analisados de forma agregada e com dados minimizados.  
+
+- **Cookies funcionais**  
+  - Permitem lembrar algumas escolhas feitas por você (como idioma, preferências de navegação ou campos já preenchidos).  
+  - Tornam a experiência mais personalizada e conveniente.  
+
+- **Cookies de marketing e remarketing (quando usados)**  
+  - Podem ser configurados por nós ou por parceiros para criar públicos, medir campanhas e exibir anúncios mais relevantes em outros sites ou redes sociais.  
+  - Esses cookies geralmente identificam o navegador ou dispositivo, mas não revelam diretamente sua identidade.  
+
+### Cookies próprios e de terceiros
+
+Os cookies utilizados podem ser:
+
+- **Cookies próprios (first-party)**: definidos diretamente pelo domínio do Meu Agente.  
+- **Cookies de terceiros (third-party)**: definidos por domínios de parceiros que fornecem serviços como analytics, mídia, ferramentas de teste A/B ou redes de anúncios.
+
+Esses terceiros devem atuar em conformidade com a legislação aplicável e com contratos firmados com o Meu Agente, mas podem ter suas **próprias políticas de privacidade e cookies**, que recomendamos que você consulte.
+
+### Como gerenciar ou desativar cookies?
+
+Você pode gerenciar o uso de cookies de diferentes formas, incluindo:
+
+- **Configurações do navegador**  
+  - A maior parte dos navegadores permite bloquear, apagar ou configurar o uso de cookies.  
+  - Consulte a seção de ajuda do seu navegador para saber como ajustar essas preferências.  
+
+- **Ferramentas de opt-out de terceiros**  
+  - Alguns serviços de analytics e publicidade disponibilizam mecanismos próprios de opt-out.  
+
+Ao desativar determinados tipos de cookies, partes do site ou da Plataforma podem **não funcionar corretamente**, e sua experiência pode ser impactada.
+
+### Atualizações sobre cookies
+
+O uso de cookies e tecnologias semelhantes pode ser ajustado ao longo do tempo, por exemplo, diante de novas ferramentas de analytics ou de mudanças em requisitos legais. Quando houver alterações relevantes, atualizaremos esta seção da Política de Privacidade.
+
+---
+
+Se restar qualquer dúvida sobre esta Política de Privacidade, sobre o uso de cookies ou sobre a forma como tratamos seus dados pessoais, entre em contato pelos nossos canais oficiais indicados acima.
 
 

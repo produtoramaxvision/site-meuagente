@@ -12,8 +12,8 @@ const Footer = () => {
     recursos: [
       { name: "Blog", href: "/blog" },
       { name: "FAQ", href: "/faq" },
-      { name: "Guia do Usuário", href: "/faq" },
-      { name: "Status do Sistema", href: "#" },
+      { name: "Guia do Usuário", href: "/guia-do-usuario" },
+      { name: "Status do Sistema", href: "/status-do-sistema" },
     ],
     empresa: [
       { name: "Sobre Nós", href: "#" },
@@ -24,8 +24,8 @@ const Footer = () => {
     legal: [
       { name: "Termos de Uso", href: "/termos-de-uso" },
       { name: "Política de Privacidade", href: "/politica-de-privacidade" },
-      { name: "LGPD", href: "#" },
-      { name: "Cookies", href: "#" },
+      { name: "LGPD", href: "/politica-de-privacidade#lgpd" },
+      { name: "Cookies", href: "/politica-de-privacidade#cookies-e-tecnologias-semelhantes" },
     ],
   };
 

@@ -867,9 +867,9 @@ O Dashboard é sua central de controle, mostrando todas as informações importa
 
 #### **📞 Canais de Suporte**
 - **Ticket**: Sistema interno
-- **Email**: suporte@meuagente.com
+- **Email**: suporte@meuagente.api.br
 - **Chat**: Chat online (futuro)
-- **Telefone**: 0800-123-4567
+- **Telefone**: (11) 95118-2561
 
 #### **📋 Informações para Suporte**
 - **Versão**: Versão do sistema
@@ -882,10 +882,10 @@ O Dashboard é sua central de controle, mostrando todas as informações importa
 ## 📞 **CONTATO E SUPORTE**
 
 ### **Informações de Contato**
-- **Email**: contato@meuagente.com
-- **Suporte**: suporte@meuagente.com
-- **Telefone**: (11) 99999-9999
-- **WhatsApp**: (11) 99999-9999
+- **Email**: contato@meuagente.api.br
+- **Suporte**: suporte@meuagente.api.br
+- **Telefone**: (11) 95118-2561
+- **WhatsApp**: (11) 95118-2561
 
 ### **Horário de Atendimento**
 - **Segunda a Sexta**: 8h às 18h
@@ -893,13 +893,12 @@ O Dashboard é sua central de controle, mostrando todas as informações importa
 - **Domingo**: Fechado
 
 ### **Redes Sociais**
-- **Facebook**: @meuagente
-- **Instagram**: @meuagente
-- **LinkedIn**: Meu Agente Financeiro
-- **YouTube**: Meu Agente Financeiro
+- **Facebook**: @meu_agente
+- **Instagram**: @meu_agente
+- **LinkedIn**: Meu Agente - Sua Agência de Inteligência Artificial no seu Bolso
+- **YouTube**: Meu Agente - Sua Agência de Inteligência Artificial no seu Bolso
 
 ---
 
-**Guia do usuário atualizado em**: 16/01/2025   
-**Versão**: 1.0.0   
+**Guia do usuário atualizado em**: 19/11/2025   
 **Para mais informações**: consulte a documentação técnica

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,6 +15,8 @@ const PoliticaDePrivacidade = () => {
   const [sidebarHeight, setSidebarHeight] = useState<number | null>(null);
 
   const sidebarRef = useRef<HTMLDivElement | null>(null);
+  const articleRef = useRef<HTMLElement | null>(null);
+  const location = useLocation();
 
   const { headings, effectiveDate } = useMemo(() => {
     const headingMatches =
@@ -72,6 +74,21 @@ const PoliticaDePrivacidade = () => {
 
     return () => observer.disconnect();
   }, []);
+
+  // Ao acessar com hash #lgpd, rola a caixa de leitura até o início do conteúdo ("1. Introdução")
+  useEffect(() => {
+    if (location.hash !== "#lgpd") return;
+    if (!articleRef.current) return;
+
+    // tenta rolar até o primeiro h2; se não houver, rola para o topo do artigo
+    const firstHeading = articleRef.current.querySelector<HTMLElement>("h2");
+    if (firstHeading) {
+      firstHeading.scrollIntoView({ behavior: "smooth", block: "start" });
+      setActiveHeading(firstHeading.id);
+    } else {
+      articleRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }, [location.hash]);
 
   return (
     <>
@@ -162,7 +179,7 @@ const PoliticaDePrivacidade = () => {
         </section>
 
         {/* Conteúdo + Índice lateral */}
-        <section className="bg-background py-16 sm:py-20">
+        <section id="lgpd" className="bg-background py-16 sm:py-20">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             {/* Cabeçalho da seção, alinhado para ambas as colunas */}
             <div className="mb-6 flex items-baseline justify-between gap-4">
@@ -184,7 +201,10 @@ const PoliticaDePrivacidade = () => {
                   className="rounded-2xl border border-border/70 bg-surface/70 shadow-sm"
                   style={sidebarHeight ? { height: sidebarHeight } : undefined}
                 >
-                  <article className="mx-auto max-w-3xl space-y-6 px-5 py-6 text-sm leading-relaxed text-text-muted sm:px-7 sm:py-8 sm:text-[15px] lg:text-base">
+                  <article
+                    ref={articleRef}
+                    className="mx-auto max-w-3xl space-y-6 px-5 py-6 text-sm leading-relaxed text-text-muted sm:px-7 sm:py-8 sm:text-[15px] lg:text-base"
+                  >
                     <ReactMarkdown
                       remarkPlugins={[remarkGfm]}
                       components={{
@@ -277,19 +297,30 @@ const PoliticaDePrivacidade = () => {
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-1.5 text-sm">
-                        {headings.map((heading) => (
-                          <a
-                            key={heading.id}
-                            href={`#${heading.id}`}
-                            className={`block rounded-md px-3 py-1.5 text-xs sm:text-sm transition-all ${
-                              activeHeading === heading.id
-                                ? "bg-brand-50/80 text-brand-900 shadow-sm dark:bg-brand-900/10"
-                                : "text-text-muted hover:bg-surface/80 hover:text-text"
-                            }`}
-                          >
-                            {heading.title}
-                          </a>
-                        ))}
+                        {headings.map((heading) => {
+                          const isActive = activeHeading === heading.id;
+                          return (
+                            <a
+                              key={heading.id}
+                              href={`#${heading.id}`}
+                              onClick={() => setActiveHeading(heading.id)}
+                              className={`group flex items-center justify-between rounded-lg border px-3 py-2 text-xs sm:text-sm transition-all ${
+                                isActive
+                                  ? "border-brand-900/60 bg-gradient-to-r from-brand-900/10 to-brand-700/10 text-brand-900 shadow-sm"
+                                  : "border-transparent text-text-muted hover:border-brand-900/40 hover:bg-surface/90 hover:text-text"
+                              }`}
+                            >
+                              <span className="flex items-center gap-2 min-w-0">
+                                <span
+                                  className={`h-1.5 w-1.5 flex-shrink-0 rounded-full transition-colors ${
+                                    isActive ? "bg-brand-900" : "bg-border"
+                                  }`}
+                                />
+                                <span className="truncate">{heading.title}</span>
+                              </span>
+                            </a>
+                          );
+                        })}
                       </CardContent>
                     </Card>
                   )}

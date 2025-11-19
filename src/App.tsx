@@ -14,10 +14,12 @@ import PoliticaDePrivacidade from "./pages/PoliticaDePrivacidade";
 import Planos from "./pages/Planos";
 import ComoFunciona from "./pages/ComoFunciona";
 import Blog from "./pages/Blog";
+import StatusDoSistema from "./pages/StatusDoSistema";
 import BlogPost from "./pages/BlogPost";
 import FAQ from "./pages/FAQ";
 import Contato from "./pages/Contato";
 import NotFound from "./pages/NotFound";
+import GuiaDoUsuario from "./pages/GuiaDoUsuario";
 
 const queryClient = new QueryClient();
 
@@ -38,8 +40,10 @@ const App = () => (
               <Route path="/politica-de-privacidade" element={<PoliticaDePrivacidade />} />
               <Route path="/planos" element={<Planos />} />
               <Route path="/como-funciona" element={<ComoFunciona />} />
+              <Route path="/status-do-sistema" element={<StatusDoSistema />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/guia-do-usuario" element={<GuiaDoUsuario />} />
               <Route path="/faq" element={<FAQ />} />
               <Route path="/contato" element={<Contato />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

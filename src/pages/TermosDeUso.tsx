@@ -267,19 +267,29 @@ const TermosDeUso = () => {
                         </CardTitle>
                       </CardHeader>
                       <CardContent className="space-y-1.5 text-sm">
-                        {headings.map((heading) => (
-                          <a
-                            key={heading.id}
-                            href={`#${heading.id}`}
-                            className={`block rounded-md px-3 py-1.5 text-xs sm:text-sm transition-all ${
-                              activeHeading === heading.id
-                                ? "bg-brand-50/80 text-brand-900 shadow-sm dark:bg-brand-900/10"
-                                : "text-text-muted hover:bg-surface/80 hover:text-text"
-                            }`}
-                          >
-                            {heading.title}
-                          </a>
-                        ))}
+                        {headings.map((heading) => {
+                          const isActive = activeHeading === heading.id;
+                          return (
+                            <a
+                              key={heading.id}
+                              href={`#${heading.id}`}
+                              className={`group flex items-center justify-between rounded-lg border px-3 py-2 text-xs sm:text-sm transition-all ${
+                                isActive
+                                  ? "border-brand-900/60 bg-gradient-to-r from-brand-900/10 to-brand-700/10 text-brand-900 shadow-sm"
+                                  : "border-transparent text-text-muted hover:border-brand-900/40 hover:bg-surface/90 hover:text-text"
+                              }`}
+                            >
+                              <span className="flex items-center gap-2 min-w-0">
+                                <span
+                                  className={`h-1.5 w-1.5 flex-shrink-0 rounded-full transition-colors ${
+                                    isActive ? "bg-brand-900" : "bg-border"
+                                  }`}
+                                />
+                                <span className="truncate">{heading.title}</span>
+                              </span>
+                            </a>
+                          );
+                        })}
                       </CardContent>
                     </Card>
                   )}
