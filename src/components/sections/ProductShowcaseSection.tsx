@@ -367,7 +367,8 @@ const ProductShowcaseSection = () => {
                     {/* Topo do “app” */}
                     <div className="flex items-center justify-between gap-4 w-full">
                       <div className="flex items-center gap-3 min-w-0 overflow-hidden">
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 ring-2 ring-emerald-500/60">
+                        {/* Ícone principal – usando border em vez de ring para evitar clipping com overflow-hidden */}
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-emerald-500/10 border border-emerald-500/60">
                           <MessageCircle className="w-4 h-4 text-emerald-500" />
                         </div>
                         <div className="min-w-0 flex-1">
