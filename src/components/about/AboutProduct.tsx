@@ -7,8 +7,8 @@ import { MessageCircle, Bot, LineChart, CalendarClock } from "lucide-react"
 export function AboutProduct() {
   return (
     <section className="py-20 sm:py-24 bg-surface/40 border-y border-border/60">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 grid gap-12 lg:grid-cols-[1.1fr,1fr] items-start">
-        <div>
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-10 lg:space-y-12">
+        <div className="max-w-3xl">
           <Badge className="mb-3 bg-brand-500/10 text-brand-400 border-brand-500/30">
             Plataforma de agentes no WhatsApp
           </Badge>
@@ -27,8 +27,8 @@ export function AboutProduct() {
           </p>
         </div>
 
-        <div className="grid gap-4 sm:gap-5">
-          <Card className="bg-background/90 border-border/70 shadow-lg">
+        <div className="grid gap-4 sm:gap-5 md:grid-cols-2 md:auto-rows-fr">
+          <Card className="h-full flex flex-col bg-background/90 border-border/70 shadow-lg">
             <CardHeader className="flex items-start gap-3 pb-3">
               <div className="h-10 w-10 rounded-xl bg-brand-900/10 border border-brand-900/40 flex items-center justify-center">
                 <MessageCircle className="h-5 w-5 text-brand-500" />
@@ -46,7 +46,7 @@ export function AboutProduct() {
             </CardContent>
           </Card>
 
-          <Card className="bg-background/90 border-border/70 shadow-lg">
+          <Card className="h-full flex flex-col bg-background/90 border-border/70 shadow-lg">
             <CardHeader className="flex items-start gap-3 pb-3">
               <div className="h-10 w-10 rounded-xl bg-emerald-500/10 border border-emerald-500/40 flex items-center justify-center">
                 <LineChart className="h-5 w-5 text-emerald-500" />
@@ -64,7 +64,7 @@ export function AboutProduct() {
             </CardContent>
           </Card>
 
-          <Card className="bg-background/90 border-border/70 shadow-lg">
+          <Card className="h-full flex flex-col bg-background/90 border-border/70 shadow-lg">
             <CardHeader className="flex items-start gap-3 pb-3">
               <div className="h-10 w-10 rounded-xl bg-sky-500/10 border border-sky-500/40 flex items-center justify-center">
                 <CalendarClock className="h-5 w-5 text-sky-500" />
@@ -79,6 +79,24 @@ export function AboutProduct() {
             <CardContent className="pt-0 text-xs sm:text-sm text-text-muted leading-relaxed">
               Agentes de Agendamento e de Marketing conectam sua rotina diária aos seus canais digitais, com governança
               e automações sob medida.
+            </CardContent>
+          </Card>
+
+          <Card className="h-full flex flex-col bg-background/90 border-border/70 shadow-lg">
+            <CardHeader className="flex items-start gap-3 pb-3">
+              <div className="h-10 w-10 rounded-xl bg-indigo-500/10 border border-indigo-500/40 flex items-center justify-center">
+                <Bot className="h-5 w-5 text-indigo-500" />
+              </div>
+              <div>
+                <CardTitle className="text-base sm:text-lg">App web para controlar seus agentes</CardTitle>
+                <CardDescription className="text-xs sm:text-sm">
+                  Painel completo para acompanhar conversas, configurar fluxos, ver relatórios e gerenciar sua operação em tempo real.
+                </CardDescription>
+              </div>
+            </CardHeader>
+            <CardContent className="pt-0 text-xs sm:text-sm text-text-muted leading-relaxed">
+              Pelo app você visualiza métricas dos agentes, ajusta mensagens, cria campanhas, organiza permissões da equipe
+              e integra o Meu Agente com outras ferramentas do seu stack — tudo em uma interface única e simples de usar.
             </CardContent>
           </Card>
         </div>
