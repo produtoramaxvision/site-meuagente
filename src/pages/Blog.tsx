@@ -316,7 +316,7 @@ const Blog = () => {
             {/* Sidebar refinada */}
             <div className="space-y-8">
               {/* Posts em destaque / mais lidos */}
-              <Card className="sticky top-28 border-border/60 bg-surface/80 backdrop-blur-sm">
+              <Card className="border-border/60 bg-surface shadow-lg">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2 text-base sm:text-lg">
                     <TrendingUp className="h-5 w-5 text-brand-900" />

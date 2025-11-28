@@ -211,7 +211,7 @@ const BlogPost = () => {
             <aside className="space-y-6">
               {/* TOC */}
               {headings.length > 0 && (
-                <Card className="sticky top-24">
+                <Card className="border-border/50 shadow-lg">
                   <CardHeader>
                     <CardTitle className="text-base">Neste artigo</CardTitle>
                   </CardHeader>
