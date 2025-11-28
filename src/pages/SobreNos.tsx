@@ -4,8 +4,6 @@ import { AboutHero } from "@/components/about/AboutHero";
 import { AboutProduct } from "@/components/about/AboutProduct";
 import { CompanyTimeline } from "@/components/about/CompanyTimeline";
 import { ValuesBento } from "@/components/about/ValuesBento";
-import { ResponsibleAI } from "@/components/about/ResponsibleAI";
-import { WhatsappExamples } from "@/components/about/WhatsappExamples";
 import { TeamGrid } from "@/components/about/TeamGrid";
 
 const SobreNos = () => {
@@ -30,8 +28,6 @@ const SobreNos = () => {
         <AboutProduct />
         <ValuesBento />
         <CompanyTimeline />
-        <ResponsibleAI />
-        <WhatsappExamples />
         <TeamGrid />
       </div>
     </>

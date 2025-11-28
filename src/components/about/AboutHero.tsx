@@ -30,7 +30,7 @@ export function AboutHero() {
         </motion.div>
 
         <motion.h1 
-            className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl lg:text-7xl text-balance bg-clip-text text-transparent bg-gradient-to-r from-white via-white/90 to-white/70"
+            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-balance text-gradient"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}

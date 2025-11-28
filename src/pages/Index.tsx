@@ -3,12 +3,11 @@ import LogosSection from "@/components/sections/LogosSection";
 import WhySection from "@/components/sections/WhySection";
 import HowItWorksSection from "@/components/sections/HowItWorksSection";
 import AgentsSection from "@/components/sections/AgentsSection";
-import ExamplesSection from "@/components/sections/ExamplesSection";
+import { WhatsappExamples } from "@/components/about/WhatsappExamples";
 import PricingSection from "@/components/sections/PricingSection";
 import ProductShowcaseSection from "@/components/sections/ProductShowcaseSection";
 import FeaturesSection from "@/components/sections/FeaturesSection";
-import IntegrationsSection from "@/components/sections/IntegrationsSection";
-import SecuritySection from "@/components/sections/SecuritySection";
+import { ResponsibleAI } from "@/components/about/ResponsibleAI";
 import TestimonialsSection from "@/components/sections/TestimonialsSection";
 import FaqSection from "@/components/sections/FaqSection";
 import FinalCTASection from "@/components/sections/FinalCTASection";
@@ -120,18 +119,17 @@ const Index = () => {
         <AgentsSection />
         </div>
         <div id="casos-uso" className="relative z-10">
-        <ExamplesSection />
+        <WhatsappExamples />
         </div>
 
         {/* Capítulo 3 – Plataforma e integrações */}
         <div id="plataforma" className="relative z-10">
         <FeaturesSection />
-        <IntegrationsSection />
         </div>
 
         {/* Capítulo 4 – Segurança e prova social */}
         <div id="seguranca" className="relative z-10">
-        <SecuritySection />
+        <ResponsibleAI />
         <TestimonialsSection />
         </div>
 
