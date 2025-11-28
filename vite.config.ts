@@ -33,6 +33,13 @@ export default defineConfig(({ mode }) => {
     },
   };
 
+  // Em desenvolvimento, permitir embed em webviews (ex: VS Code Simple Browser)
+  // removendo o cabeçalho que impede frames. Mantemos os headers de segurança
+  // para produção/preview.
+  if (isDevelopment && serverConfig.headers) {
+    delete serverConfig.headers["X-Frame-Options"];
+    delete serverConfig.headers["Strict-Transport-Security"];
+  }
   // Configuração específica para desenvolvimento
   if (isDevelopment) {
     serverConfig.hmr = {
