@@ -12,7 +12,7 @@ export default defineConfig(({ mode }) => {
   // Configuração dinâmica baseada no ambiente
   const serverConfig: import("vite").ServerOptions = {
     host: "0.0.0.0",
-    port: 8080,
+    port: 8181,
     strictPort: true,
     cors: true,
     headers: {
@@ -44,7 +44,7 @@ export default defineConfig(({ mode }) => {
   if (isDevelopment) {
     serverConfig.hmr = {
       host: "localhost",
-      port: 8080,
+      port: 8181,
       // Permitir acesso externo para testes (ajustável via env)
       clientPort: process.env.VITE_HMR_CLIENT_PORT
         ? parseInt(process.env.VITE_HMR_CLIENT_PORT)
@@ -62,7 +62,7 @@ export default defineConfig(({ mode }) => {
   if (isProduction) {
     serverConfig.hmr = {
       host: "site.meuagente.api.br",
-      port: 8080,
+      port: 8181,
     };
 
     serverConfig.allowedHosts = ["site.meuagente.api.br"];
@@ -140,7 +140,7 @@ export default defineConfig(({ mode }) => {
     // Configuração de preview para produção
     preview: {
       host: "0.0.0.0",
-      port: 8080,
+      port: 8181,
       cors: true,
       headers: {
         // Headers de Segurança HTTP para produção
