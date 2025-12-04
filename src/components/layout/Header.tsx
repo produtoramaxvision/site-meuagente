@@ -70,13 +70,16 @@ const Header = () => {
             </Button>
           </div>
 
-          {/* Mobile menu button */}
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-surface-2 transition-colors"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          >
-            <Menu className="w-6 h-6 text-text" />
-          </button>
+          {/* Mobile header actions */}
+          <div className="flex items-center gap-2 md:hidden">
+            <AnimatedThemeToggler className="h-9 w-9" />
+            <button
+              className="p-2 rounded-lg hover:bg-surface-2 transition-colors"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <Menu className="w-6 h-6 text-text" />
+            </button>
+          </div>
         </div>
 
         {/* Mobile menu */}

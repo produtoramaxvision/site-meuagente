@@ -39,7 +39,7 @@ const Footer = () => {
   return (
     <footer className="bg-surface-2 border-t border-border/50">
       {/* Newsletter section */}
-      <div className="bg-section-dark py-12">
+      <div className="bg-section-dark py-6">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-6">
             <h3 className="text-2xl font-bold text-white mb-2">
@@ -55,7 +55,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Main footer content */}
         <div className="mb-12">
           {/* Logo centralizado em tablet/desktop e mobile */}
@@ -181,28 +181,23 @@ const Footer = () => {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Bottom bar */}
-        <div className="pt-8 border-t border-border/50">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-text-muted">
-              © 2025 Meu Agente. Todos os direitos reservados.
-            </p>
-            <div className="flex items-center gap-6 text-sm text-text-muted">
-              <span>
-                Desenvolvido por ©{" "}
-                <a
-                  href="https://www.produtoramaxvision.com.br/inteligencia-artificial"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-[#A93838]"
-                >
-                  Produtora MaxVision
-                </a>{" "}
-                2025 – Todos os direitos reservados.
-              </span>
-            </div>
-          </div>
+      {/* Bottom bar – full width */}
+      <div className="border-t border-border/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-center items-center text-center">
+          <span className="text-sm text-text-muted">
+            Desenvolvido por ©{" "}
+            <a
+              href="https://www.produtoramaxvision.com.br/inteligencia-artificial"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#A93838]"
+            >
+              Produtora MaxVision
+            </a>{" "}
+            2025 – Todos os direitos reservados.
+          </span>
         </div>
       </div>
     </footer>
