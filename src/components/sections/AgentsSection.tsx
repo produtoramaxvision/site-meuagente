@@ -1,5 +1,5 @@
-import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { MorphingCardStack, type CardData } from "@/components/ui/morphing-card-stack";
 import { 
   DollarSign, 
   Search, 
@@ -16,70 +16,70 @@ import {
 } from "lucide-react";
 
 const AgentsSection = () => {
-  const agents = [
+  const agentCards: CardData[] = [
     {
-      icon: DollarSign,
-      name: "Agente Financeiro",
+      id: "financeiro",
+      icon: <DollarSign className="w-6 h-6 text-green-500" />,
+      title: "Agente Financeiro",
       description: "Controle total de receitas, despesas e exportações. Categorias inteligentes e alertas automáticos.",
       tier: "Todos os planos",
-      color: "from-green-500/10 to-emerald-500/10",
-      iconColor: "text-green-600 dark:text-green-400",
+      color: "rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1)",
     },
     {
-      icon: Search,
-      name: "Agente Web Search",
+      id: "websearch",
+      icon: <Search className="w-6 h-6 text-blue-500" />,
+      title: "Agente Web Search",
       description: "Pesquise informações na web, tendências e concorrentes em segundos.",
       tier: "Todos os planos",
-      color: "from-blue-500/10 to-cyan-500/10",
-      iconColor: "text-blue-600 dark:text-blue-400",
+      color: "rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1)",
     },
     {
-      icon: Database,
-      name: "Agente de Scrape/Extract",
+      id: "scrape",
+      icon: <Database className="w-6 h-6 text-purple-500" />,
+      title: "Agente de Scrape/Extract",
       description: "Extraia dados de fontes permitidas, gere relatórios CSV/JSON estruturados.",
       tier: "Todos os planos",
-      color: "from-purple-500/10 to-pink-500/10",
-      iconColor: "text-purple-600 dark:text-purple-400",
+      color: "rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1)",
     },
     {
-      icon: UserCheck,
-      name: "Agente SDR",
+      id: "sdr",
+      icon: <UserCheck className="w-6 h-6 text-orange-500" />,
+      title: "Agente SDR",
       description: "Qualifique leads, agende reuniões no Google Calendar, envie confirmações automáticas.",
       tier: "Business/Premium",
-      color: "from-orange-500/10 to-red-500/10",
-      iconColor: "text-orange-600 dark:text-orange-400",
+      color: "rgba(249, 115, 22, 0.1), rgba(239, 68, 68, 0.1)",
     },
     {
-      icon: TrendingUp,
-      name: "Agente de Marketing",
+      id: "marketing",
+      icon: <TrendingUp className="w-6 h-6 text-pink-500" />,
+      title: "Agente de Marketing",
       description: "Analise campanhas Google Ads, otimize termos, receba alertas de performance.",
       tier: "Business/Premium",
-      color: "from-pink-500/10 to-rose-500/10",
-      iconColor: "text-pink-600 dark:text-pink-400",
+      color: "rgba(236, 72, 153, 0.1), rgba(244, 63, 94, 0.1)",
     },
     {
-      icon: Calendar,
-      name: "Agente de Agendamento",
+      id: "agendamento",
+      icon: <Calendar className="w-6 h-6 text-indigo-500" />,
+      title: "Agente de Agendamento",
       description: "Gerencie Google Calendar, Drive, Tasks e envie lembretes automáticos.",
       tier: "Básico/Business/Premium",
-      color: "from-indigo-500/10 to-blue-500/10",
-      iconColor: "text-indigo-600 dark:text-indigo-400",
+      color: "rgba(99, 102, 241, 0.1), rgba(59, 130, 246, 0.1)",
     },
     {
-      icon: Code,
-      name: "Agente de Dev",
+      id: "dev",
+      icon: <Code className="w-6 h-6 text-gray-500" />,
+      title: "Agente de Dev",
       description: "Debugging, sugestões de código, suporte técnico em múltiplas linguagens.",
       tier: "Business/Premium",
-      color: "from-gray-500/10 to-slate-500/10",
-      iconColor: "text-gray-600 dark:text-gray-400",
+      color: "rgba(107, 114, 128, 0.1), rgba(100, 116, 139, 0.1)",
     },
     {
-      icon: Video,
-      name: "Agente de Vídeo – Veo 3",
+      id: "video",
+      icon: <Video className="w-6 h-6 text-violet-500" />,
+      title: "Agente de Vídeo – Veo 3",
       description: "Gere vídeos profissionais a partir de roteiros, ideal para marketing.",
       tier: "Business/Premium",
-      color: "from-violet-500/10 to-purple-500/10",
-      iconColor: "text-violet-600 dark:text-violet-400",
+      color: "rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.1)",
     },
   ];
 
@@ -110,50 +110,24 @@ const AgentsSection = () => {
     <section className="py-24 bg-background section-texture-soft">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <h2 className="text-4xl sm:text-5xl font-extrabold text-gradient mb-4 pb-2 leading-normal">
             Agentes de IA Especializados
           </h2>
-          <p className="text-xl text-text-muted max-w-3xl mx-auto">
+          <p className="text-xl text-text-muted max-w-3xl mx-auto mb-2">
             Cada agente é treinado para executar tarefas específicas com precisão e velocidade
+          </p>
+          <p className="text-sm text-text-muted">
+            Alterne entre os modos de visualização: pilha, grade ou lista
           </p>
         </div>
 
-        {/* Main agents grid */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-16">
-          {agents.map((agent, index) => (
-            <Card
-              key={index}
-              className={`group relative overflow-hidden p-6 bg-gradient-to-br ${agent.color} border-border/50 hover:border-accent transition-all duration-300 hover:scale-105 hover:-translate-y-2 hover:shadow-xl-adaptive flex flex-col h-full`}
-            >
-              {/* Icon */}
-              <div className="mb-4">
-                <div className="w-12 h-12 rounded-xl bg-background/50 backdrop-blur-sm flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <agent.icon className={`w-6 h-6 ${agent.iconColor}`} />
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="flex-1 flex flex-col">
-                <h3 className="text-lg font-bold text-text mb-2">{agent.name}</h3>
-                <p className="text-sm text-text-muted mb-4 flex-1">{agent.description}</p>
-
-                {/* Tier badge - sempre na base */}
-                <div className="mt-auto pt-2">
-                  <Badge 
-                    variant="secondary" 
-                    className="text-xs"
-                  >
-                    {agent.tier}
-                  </Badge>
-                </div>
-              </div>
-
-              {/* Hover effect */}
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
-            </Card>
-          ))}
-        </div>
+        {/* Morphing Card Stack */}
+        <MorphingCardStack 
+          cards={agentCards} 
+          defaultLayout="grid"
+          className="mb-16"
+        />
 
         {/* Premium exclusive agents */}
         <div className="relative p-8 rounded-2xl bg-card-gradient border">
