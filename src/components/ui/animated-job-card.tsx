@@ -97,6 +97,7 @@ export const AnimatedJobCard = ({
         className={cn(
           // Em telas menores, limitamos a largura visual do card para ~90vw,
           // garantindo que mesmo com o tilt 3D ele não ultrapasse as bordas.
+          // Usamos h-full para ocupar o container, que agora tem min-h adequado em mobile.
           "relative h-full w-full max-w-[90vw] sm:max-w-none mx-auto",
           "transform-gpu cursor-pointer overflow-hidden rounded-xl bg-card border border-border/70 shadow-adaptive p-6 transition-shadow duration-300 hover:shadow-xl-adaptive",
           "border-t-4",

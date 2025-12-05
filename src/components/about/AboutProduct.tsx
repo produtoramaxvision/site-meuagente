@@ -88,12 +88,15 @@ export function AboutProduct() {
 
     if (index === prevIndex) {
       // Card à esquerda (levemente rotacionado e deslocado)
-      return "-rotate-6 -translate-x-10 sm:-translate-x-20 md:-translate-x-24 translate-y-2 z-20 opacity-80 scale-95"
+      // Em mobile (xs), escondemos o card lateral para não estourar a largura da tela
+      // e evitar que o card principal cubra totalmente sua área clicável.
+      return "hidden sm:block sm:-rotate-6 sm:-translate-x-10 md:-translate-x-20 lg:-translate-x-24 sm:translate-y-2 sm:z-20 sm:opacity-80 sm:scale-95"
     }
 
     if (index === nextIndex) {
       // Card à direita (levemente rotacionado e deslocado)
-      return "rotate-6 translate-x-10 sm:translate-x-20 md:translate-x-24 translate-y-2 z-20 opacity-80 scale-95"
+      // Mesma lógica do card da esquerda: só exibido a partir de sm.
+      return "hidden sm:block sm:rotate-6 sm:translate-x-10 md:translate-x-20 lg:translate-x-24 sm:translate-y-2 sm:z-20 sm:opacity-80 sm:scale-95"
     }
 
     // Cards que não estão imediatamente na esquerda/direita ficam discretos no fundo
@@ -127,10 +130,11 @@ export function AboutProduct() {
         </div>
 
         {/* Deck interativo de cards sobrepostos (4 cards)
-            Em telas pequenas usamos -mx-4 para compensar o padding do container pai
-            e dar espaço extra para os cards rotacionados sem cortá-los nas laterais. */}
+            Em telas pequenas mostramos apenas um card de cada vez (sem laterais visíveis),
+            para evitar estouro nas bordas e garantir clique confortável.
+            As laterais aparecem apenas a partir de sm com as classes acima. */}
         <div className="relative flex justify-center items-center py-4 sm:py-8 -mx-4 sm:mx-0">
-          <div className="relative w-full max-w-5xl h-[260px] sm:h-[280px] md:h-[320px]">
+          <div className="relative w-full max-w-5xl min-h-[380px] sm:min-h-[280px] md:min-h-[320px]">
             {deckCards.map((card, index) => (
               <AnimatedJobCard
                 key={card.id}
@@ -149,6 +153,23 @@ export function AboutProduct() {
               />
             ))}
           </div>
+        </div>
+
+        {/* Controles de navegação para mobile:
+            permitem trocar de card mesmo quando só um está visível por vez. */}
+        <div className="mt-4 flex justify-center gap-2 sm:mt-6">
+          {deckCards.map((card, index) => (
+            <button
+              key={card.id}
+              type="button"
+              onClick={() => setActiveIndex(index)}
+              className={cn(
+                "h-2 rounded-full transition-all",
+                index === activeIndex ? "w-6 bg-brand-400" : "w-2 bg-border hover:bg-border/80",
+              )}
+              aria-label={`Ver card: ${card.companyName}`}
+            />
+          ))}
         </div>
       </div>
     </section>
