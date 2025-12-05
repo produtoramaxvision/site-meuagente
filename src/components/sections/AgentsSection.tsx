@@ -24,6 +24,7 @@ const AgentsSection = () => {
       description: "Controle total de receitas, despesas e exportações. Categorias inteligentes e alertas automáticos.",
       tier: "Todos os planos",
       color: "rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1)",
+      titleColor: "text-green-600 dark:text-green-400",
     },
     {
       id: "websearch",
@@ -32,6 +33,7 @@ const AgentsSection = () => {
       description: "Pesquise informações na web, tendências e concorrentes em segundos.",
       tier: "Todos os planos",
       color: "rgba(59, 130, 246, 0.1), rgba(6, 182, 212, 0.1)",
+      titleColor: "text-blue-600 dark:text-blue-400",
     },
     {
       id: "scrape",
@@ -40,6 +42,7 @@ const AgentsSection = () => {
       description: "Extraia dados de fontes permitidas, gere relatórios CSV/JSON estruturados.",
       tier: "Todos os planos",
       color: "rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1)",
+      titleColor: "text-purple-600 dark:text-purple-400",
     },
     {
       id: "sdr",
@@ -48,6 +51,7 @@ const AgentsSection = () => {
       description: "Qualifique leads, agende reuniões no Google Calendar, envie confirmações automáticas.",
       tier: "Business/Premium",
       color: "rgba(249, 115, 22, 0.1), rgba(239, 68, 68, 0.1)",
+      titleColor: "text-orange-600 dark:text-orange-400",
     },
     {
       id: "marketing",
@@ -56,6 +60,7 @@ const AgentsSection = () => {
       description: "Analise campanhas Google Ads, otimize termos, receba alertas de performance.",
       tier: "Business/Premium",
       color: "rgba(236, 72, 153, 0.1), rgba(244, 63, 94, 0.1)",
+      titleColor: "text-pink-600 dark:text-pink-400",
     },
     {
       id: "agendamento",
@@ -64,6 +69,7 @@ const AgentsSection = () => {
       description: "Gerencie Google Calendar, Drive, Tasks e envie lembretes automáticos.",
       tier: "Básico/Business/Premium",
       color: "rgba(99, 102, 241, 0.1), rgba(59, 130, 246, 0.1)",
+      titleColor: "text-indigo-600 dark:text-indigo-400",
     },
     {
       id: "dev",
@@ -72,6 +78,7 @@ const AgentsSection = () => {
       description: "Debugging, sugestões de código, suporte técnico em múltiplas linguagens.",
       tier: "Business/Premium",
       color: "rgba(107, 114, 128, 0.1), rgba(100, 116, 139, 0.1)",
+      titleColor: "text-gray-600 dark:text-gray-400",
     },
     {
       id: "video",
@@ -80,6 +87,7 @@ const AgentsSection = () => {
       description: "Gere vídeos profissionais a partir de roteiros, ideal para marketing.",
       tier: "Business/Premium",
       color: "rgba(139, 92, 246, 0.1), rgba(168, 85, 247, 0.1)",
+      titleColor: "text-violet-600 dark:text-violet-400",
     },
   ];
 

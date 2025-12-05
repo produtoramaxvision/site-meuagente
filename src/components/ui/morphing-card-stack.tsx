@@ -14,6 +14,36 @@ export interface CardData {
   icon?: ReactNode
   color?: string
   tier?: string
+  titleColor?: string
+}
+
+// Mapeamento de cores para diferentes tiers
+const tierColorMap: Record<string, { bg: string; text: string; border: string }> = {
+  "Todos os planos": {
+    bg: "bg-emerald-500/15",
+    text: "text-emerald-600 dark:text-emerald-400",
+    border: "border border-emerald-500/30",
+  },
+  "Básico/Business/Premium": {
+    bg: "bg-blue-500/15",
+    text: "text-blue-600 dark:text-blue-400",
+    border: "border border-blue-500/30",
+  },
+  "Business/Premium": {
+    bg: "bg-purple-500/15",
+    text: "text-purple-600 dark:text-purple-400",
+    border: "border border-purple-500/30",
+  },
+  "Premium": {
+    bg: "bg-amber-500/15",
+    text: "text-amber-600 dark:text-amber-400",
+    border: "border border-amber-500/30",
+  },
+  default: {
+    bg: "bg-accent/10",
+    text: "text-accent",
+    border: "border border-accent/30",
+  },
 }
 
 export interface MorphingCardStackProps {
@@ -187,7 +217,10 @@ export function MorphingCardStack({
                       </div>
                     )}
                     <div className="min-w-0 flex-1">
-                      <h3 className="font-bold text-foreground dark:text-white truncate">{card.title}</h3>
+                      <h3 className={cn(
+                        "font-bold truncate",
+                        card.titleColor || "text-foreground dark:text-white"
+                      )}>{card.title}</h3>
                       <p
                         className={cn(
                           "text-sm text-muted-foreground dark:text-gray-300 mt-1",
@@ -199,7 +232,14 @@ export function MorphingCardStack({
                         {card.description}
                       </p>
                       {card.tier && (
-                        <span className="inline-block mt-2 text-xs px-2 py-1 rounded-full bg-accent/10 text-accent font-medium">
+                        <span 
+                          className={cn(
+                            "inline-block mt-2 text-xs px-2.5 py-1 rounded-full font-medium",
+                            tierColorMap[card.tier]?.bg || tierColorMap.default.bg,
+                            tierColorMap[card.tier]?.text || tierColorMap.default.text,
+                            tierColorMap[card.tier]?.border || tierColorMap.default.border,
+                          )}
+                        >
                           {card.tier}
                         </span>
                       )}
