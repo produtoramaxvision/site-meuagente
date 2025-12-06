@@ -15,6 +15,8 @@ import {
   Target,
   Wallet,
   Layers,
+  MessageSquare,
+  Briefcase,
 } from "lucide-react";
 
 const FeaturesSection = () => {
@@ -75,6 +77,20 @@ const FeaturesSection = () => {
       color: "from-gray-500/10 to-slate-500/10",
       iconColor: "text-gray-600 dark:text-gray-400",
     },
+    {
+      icon: MessageSquare,
+      title: "Chat IA Integrado",
+      description: "Converse diretamente pelo chat sem abrir transações. Solicitações e respostas instantâneas.",
+      color: "from-teal-500/10 to-cyan-500/10",
+      iconColor: "text-teal-600 dark:text-teal-400",
+    },
+    {
+      icon: Briefcase,
+      title: "CRM & Gestão de Projetos",
+      description: "Gerencie clientes, leads, projetos e pipelines comerciais em um só lugar.",
+      color: "from-violet-500/10 to-purple-500/10",
+      iconColor: "text-violet-600 dark:text-violet-400",
+    },
   ];
 
   const [activeFeature, setActiveFeature] = useState<(typeof features)[number]>(
@@ -115,9 +131,9 @@ const FeaturesSection = () => {
         </div>
 
         {/* Main layout – Dashboard preview + feature navigator */}
-        <div className="relative grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] items-start">
+        <div className="relative grid gap-8 lg:grid-cols-[1fr_1fr] lg:items-stretch">
           {/* Dashboard preview – inspired by modern finance SaaS UIs */}
-          <div className="relative">
+          <div className="relative h-full flex flex-col">
             <div className="pointer-events-none absolute -inset-6 rounded-[32px] glow-decorative blur-2xl -z-10" />
 
             <Card className="relative overflow-hidden rounded-3xl border border-border/50 hover:border-accent bg-surface/95 backdrop-blur-xl text-card-foreground shadow-2xl-adaptive transition-all duration-300">
@@ -155,7 +171,7 @@ const FeaturesSection = () => {
 
               {/* Content grid */}
               <div className="px-6 pb-6 pt-4">
-                <div className="grid gap-6 lg:grid-cols-[1.3fr_minmax(0,0.9fr)] items-start">
+                <div className="grid gap-6 lg:grid-cols-2 lg:items-stretch">
                   {/* Left – financial summary + chart */}
                   <div className="space-y-4">
                     {/* KPI cards */}
@@ -206,7 +222,7 @@ const FeaturesSection = () => {
                             Receita x Despesa (últimos 14 dias)
                           </span>
                         </div>
-                        <div className="flex items-center gap-2 text-[11px] text-text-muted">
+                        <div className="hidden sm:flex items-center gap-2 text-[11px] text-text-muted">
                           <span className="inline-flex items-center gap-1">
                             <span className="h-1.5 w-4 rounded-full bg-emerald-400/80" />
                             Receita
@@ -218,37 +234,126 @@ const FeaturesSection = () => {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-14 gap-1.5 items-end h-32">
+                      {/* Chart container with proper responsive flex layout */}
+                      <div className="relative w-full h-32 flex items-end justify-between gap-[3px] sm:gap-1.5 px-1">
                         {[
-                          30, 45, 50, 38, 62, 72, 68, 80, 76, 60, 54, 70, 82,
-                          64,
-                        ].map((height, index) => (
-                          <div key={index} className="flex flex-col gap-0.5">
-                            <div className="relative flex-1 flex items-end">
+                          { revenue: 72, expense: 28 },
+                          { revenue: 65, expense: 35 },
+                          { revenue: 78, expense: 22 },
+                          { revenue: 58, expense: 42 },
+                          { revenue: 82, expense: 18 },
+                          { revenue: 88, expense: 12 },
+                          { revenue: 76, expense: 24 },
+                          { revenue: 92, expense: 8 },
+                          { revenue: 85, expense: 15 },
+                          { revenue: 70, expense: 30 },
+                          { revenue: 64, expense: 36 },
+                          { revenue: 80, expense: 20 },
+                          { revenue: 90, expense: 10 },
+                          { revenue: 75, expense: 25 },
+                        ].map((data, index) => (
+                          <div key={index} className="flex flex-col items-center gap-1 flex-1 min-w-0">
+                            {/* Bar container */}
+                            <div className="relative w-full h-28 flex flex-col justify-end">
+                              {/* Revenue bar (green) */}
                               <div
-                                className="w-full rounded-full bg-gradient-to-t from-emerald-500/60 via-emerald-400/70 to-emerald-300/80 shadow-[0_0_12px_rgba(16,185,129,0.45)] transition-all duration-500"
+                                className="w-full rounded-t-sm bg-gradient-to-t from-emerald-500/70 via-emerald-400/80 to-emerald-300/90 shadow-[0_0_8px_rgba(16,185,129,0.35)] transition-all duration-500 hover:shadow-[0_0_14px_rgba(16,185,129,0.55)]"
                                 style={{
-                                  height: `${height}%`,
+                                  height: `${data.revenue}%`,
                                 }}
                               />
+                              {/* Expense bar (red, overlaid at bottom) */}
                               <div
-                                className="absolute bottom-0 w-full rounded-full bg-gradient-to-t from-rose-500/60 via-rose-400/0 to-transparent opacity-60"
+                                className="absolute bottom-0 w-full rounded-t-sm bg-gradient-to-t from-rose-500/70 via-rose-400/50 to-rose-300/0 transition-all duration-500"
                                 style={{
-                                  height: `${Math.max(18, 90 - height)}%`,
+                                  height: `${data.expense}%`,
                                 }}
                               />
                             </div>
-                            <span className="text-[10px] text-text-muted/70 text-center">
+                            {/* Day label */}
+                            <span className="text-[9px] sm:text-[10px] text-text-muted/70 text-center whitespace-nowrap">
                               D{index + 1}
                             </span>
                           </div>
                         ))}
                       </div>
+                      
+                      {/* Mobile legend */}
+                      <div className="flex sm:hidden items-center justify-center gap-3 mt-3 text-[10px] text-text-muted">
+                        <span className="inline-flex items-center gap-1">
+                          <span className="h-1.5 w-3 rounded-full bg-emerald-400/80" />
+                          Receita
+                        </span>
+                        <span className="inline-flex items-center gap-1">
+                          <span className="h-1.5 w-3 rounded-full bg-rose-400/80" />
+                          Despesa
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Gestão Unificada Card - moved from right column */}
+                    <div className="flex items-center justify-between gap-3 rounded-2xl border border-dashed border-border/80 bg-surface/80 px-4 py-3">
+                      <div className="flex flex-col">
+                        <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-text-muted">
+                          Gestão unificada
+                        </span>
+                        <span className="text-xs text-text-muted">
+                          Dashboard, contas, metas, agenda, tarefas e alertas em
+                          uma única interface.
+                        </span>
+                      </div>
+                      <div className="hidden sm:flex flex-col items-end gap-1 text-[11px] text-text-muted">
+                        <span>• Zero planilhas soltas</span>
+                        <span>• Zero duplicidade de dados</span>
+                      </div>
                     </div>
                   </div>
 
                   {/* Right – agenda, tarefas & alertas ligados às features */}
-                  <div className="space-y-4">
+                  <div className="h-full flex flex-col justify-between space-y-4">
+                    {/* Category Breakdown Card */}
+                    <div className="rounded-2xl border border-border/60 bg-gradient-to-b from-surface/90 to-background/80 px-4 py-4">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex flex-col">
+                          <span className="text-xs font-medium text-text-muted uppercase tracking-[0.2em]">
+                            Por categoria
+                          </span>
+                          <span className="text-sm font-semibold text-text">
+                            Distribuição mensal (Top 6)
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Category bars */}
+                      <div className="space-y-2.5">
+                        {[
+                          { name: "Marketing", value: 42, barClass: "bg-sky-500/70", textClass: "text-sky-400" },
+                          { name: "Operação", value: 68, barClass: "bg-emerald-500/70", textClass: "text-emerald-400" },
+                          { name: "Impostos", value: 35, barClass: "bg-amber-500/70", textClass: "text-amber-400" },
+                          { name: "Pessoal", value: 78, barClass: "bg-purple-500/70", textClass: "text-purple-400" },
+                          { name: "Infraestrutura", value: 52, barClass: "bg-indigo-500/70", textClass: "text-indigo-400" },
+                          { name: "Outros", value: 28, barClass: "bg-slate-500/70", textClass: "text-slate-400" },
+                        ].map((category, index) => (
+                          <div key={index} className="flex items-center gap-3">
+                            <span className="text-[11px] font-medium text-text-muted w-24 sm:w-28 flex-shrink-0 truncate">
+                              {category.name}
+                            </span>
+                            <div className="relative flex-1 h-5 bg-surface/80 rounded-full overflow-hidden border border-border/40">
+                              <div
+                                className={`absolute inset-y-0 left-0 ${category.barClass} rounded-full transition-all duration-700 ease-out shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)]`}
+                                style={{
+                                  width: `${category.value}%`,
+                                }}
+                              />
+                            </div>
+                            <span className={`text-[11px] font-semibold ${category.textClass} w-8 text-right flex-shrink-0`}>
+                              {category.value}%
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
                     <div className="rounded-2xl border border-border/60 bg-background/90 px-4 py-3">
                       <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-text-muted mb-2">
                         Agenda & tarefas do dia
@@ -314,22 +419,6 @@ const FeaturesSection = () => {
                         </p>
                       </div>
                     </div>
-
-                    <div className="flex items-center justify-between gap-3 rounded-2xl border border-dashed border-border/80 bg-surface/80 px-4 py-3">
-                      <div className="flex flex-col">
-                        <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-text-muted">
-                          Gestão unificada
-                        </span>
-                        <span className="text-xs text-text-muted">
-                          Dashboard, contas, metas, agenda, tarefas e alertas em
-                          uma única interface.
-                        </span>
-                      </div>
-                      <div className="hidden sm:flex flex-col items-end gap-1 text-[11px] text-text-muted">
-                        <span>• Zero planilhas soltas</span>
-                        <span>• Zero duplicidade de dados</span>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -337,8 +426,8 @@ const FeaturesSection = () => {
           </div>
 
           {/* Feature navigator – sofisticado, ligado ao preview */}
-          <div className="space-y-6">
-            <div className="space-y-2">
+          <div className="h-full flex flex-col">
+            <div className="space-y-2 mb-6">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-text-muted">
                 Tudo o que a sua operação precisa
               </p>
@@ -348,7 +437,7 @@ const FeaturesSection = () => {
               </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-2 flex-1">
               {features.map((feature) => {
                 const isActive = feature.title === activeFeature.title;
 
