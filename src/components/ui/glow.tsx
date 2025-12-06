@@ -29,14 +29,14 @@ const Glow = React.forwardRef<
     <div
       className={cn(
         "absolute left-1/2 h-[220px] w-[55%] -translate-x-1/2 scale-[1.6] rounded-[50%] opacity-55 blur-3xl",
-        "bg-[radial-gradient(ellipse_at_center,_hsl(var(--muted)_/_0.45)_0%,_hsl(var(--background)_/_0.9)_42%,_hsl(var(--background)_/_0)_70%)] sm:h-[420px]",
+        "bg-[radial-gradient(ellipse_at_center,_hsl(0_0%_62%/.22)_12%,_hsl(0_0%_18%/.12)_38%,_hsl(0_0%_5%/0)_70%)] sm:h-[420px]",
         variant === "center" && "-translate-y-1/2",
       )}
     />
     <div
       className={cn(
         "absolute left-1/2 h-[120px] w-[32%] -translate-x-1/2 scale-[1.4] rounded-[50%] opacity-45 blur-2xl",
-        "bg-[radial-gradient(ellipse_at_center,_hsl(var(--muted)_/_0.55)_8%,_hsl(var(--background)_/_0.75)_38%,_hsl(var(--background)_/_0)_65%)] sm:h-[220px]",
+        "bg-[radial-gradient(ellipse_at_center,_hsl(0_0%_72%/.22)_12%,_hsl(0_0%_22%/.12)_36%,_hsl(0_0%_5%/0)_65%)] sm:h-[220px]",
         variant === "center" && "-translate-y-1/2",
       )}
     />
