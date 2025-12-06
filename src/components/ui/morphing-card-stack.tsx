@@ -204,20 +204,22 @@ export function MorphingCardStack({
                     onCardClick?.(card)
                   }}
                   className={cn(
-                    "cursor-pointer rounded-xl border border-border/70 p-5",
+                    "group cursor-pointer rounded-xl border border-border/70 p-5",
                     "bg-background/95 dark:bg-card/95 backdrop-blur-sm",
                     "hover:border-accent/50 transition-colors shadow-lg",
+                    "flex h-full overflow-hidden",
+                    layout === "list" ? "flex-row items-center gap-4" : "flex-col",
                     layout === "stack" && "absolute w-64 h-56 sm:w-72 sm:h-64",
                     layout === "stack" && isTopCard && "cursor-grab active:cursor-grabbing",
-                    layout === "grid" && "w-full",
-                    layout === "list" && "w-full",
+                    layout === "grid" && "w-full shadow-adaptive hover:shadow-none transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]",
+                    layout === "list" && "w-full shadow-adaptive hover:shadow-none transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02]",
                     isExpanded && "ring-2 ring-accent",
                   )}
                 >
-                  <div className="flex items-start gap-3">
+                  <div className="flex items-start gap-3 flex-1 min-w-0">
                     {card.icon && (
                       <div 
-                        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
+                        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl opacity-80 group-hover:opacity-100 transition-opacity duration-300 ease-out"
                         style={{
                           background: card.color ? `linear-gradient(135deg, ${card.color})` : undefined,
                         }}
@@ -227,39 +229,53 @@ export function MorphingCardStack({
                     )}
                     <div className="min-w-0 flex-1">
                       <h3 className={cn(
-                        "font-bold truncate",
+                        "font-bold leading-tight",
                         card.titleColor || "text-foreground dark:text-white"
                       )}>{card.title}</h3>
                       <p
                         className={cn(
-                          "text-sm text-muted-foreground dark:text-gray-300 mt-1",
-                          layout === "stack" && "line-clamp-3",
-                          layout === "grid" && "line-clamp-2",
-                          layout === "list" && "line-clamp-2",
+                          "text-muted-foreground dark:text-gray-300 mt-1 leading-relaxed",
+                          layout === "stack" ? "text-sm line-clamp-3" : "text-xs",
                         )}
                       >
                         {card.description}
                       </p>
-                      {card.tier && (
-                        <span 
-                          className={cn(
-                            "inline-block mt-2 text-xs px-2.5 py-1 rounded-full font-medium",
-                            tierColorMap[card.tier]?.bg || tierColorMap.default.bg,
-                            tierColorMap[card.tier]?.text || tierColorMap.default.text,
-                            tierColorMap[card.tier]?.border || tierColorMap.default.border,
-                          )}
-                        >
-                          {card.tier}
-                        </span>
-                      )}
                     </div>
                   </div>
 
-                  {isTopCard && layout === "stack" && (
-                    <div className="absolute bottom-3 left-0 right-0 text-center">
-                      <span className="text-xs text-muted-foreground/70 dark:text-gray-400">Arraste para navegar</span>
-                    </div>
-                  )}
+                  <div
+                    className={cn(
+                      layout === "stack" && "flex flex-col gap-1 mt-auto items-center",
+                      layout === "grid" && "flex flex-col gap-1 mt-auto items-start pt-3",
+                      layout === "list" && "ml-auto flex items-center"
+                    )}
+                  >
+                    {card.tier && (
+                      <span 
+                        className={cn(
+                          "inline-block text-xs px-2.5 py-1 rounded-full font-medium",
+                          tierColorMap[card.tier]?.bg || tierColorMap.default.bg,
+                          tierColorMap[card.tier]?.text || tierColorMap.default.text,
+                          tierColorMap[card.tier]?.border || tierColorMap.default.border,
+                        )}
+                      >
+                        {card.tier}
+                      </span>
+                    )}
+
+                    {layout === "stack" && (
+                      <span
+                        className={cn(
+                          "text-xs text-muted-foreground/70 dark:text-gray-400",
+                          "opacity-70 transition-opacity duration-300 ease-out",
+                          "group-hover:opacity-100 group-active:opacity-100",
+                          isDragging && isTopCard ? "opacity-100" : ""
+                        )}
+                      >
+                        Arraste para navegar
+                      </span>
+                    )}
+                  </div>
                 </motion.div>
               )
             })}

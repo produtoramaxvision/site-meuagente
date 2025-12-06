@@ -32,7 +32,7 @@ const HeroSection = () => {
               <path d="M2 10C100 3 200 3 298 10" stroke="currentColor" strokeWidth="3" strokeLinecap="round" className="text-text/30" />
             </svg>
           </span>
-          <span className="text-gradient">{" "}Trabalhando 24/7</span>
+          <span className="text-gradient">{" "}Trabalhando 24 horas</span>
         </h1>
 
         {/* Subheadline */}
@@ -63,11 +63,11 @@ const HeroSection = () => {
         </div>
 
         {/* Video/Demo placeholder */}
-        <div className="max-w-5xl mx-auto animate-scale-in" style={{ animationDelay: "0.4s" }}>
-          <div className="relative rounded-2xl overflow-hidden shadow-2xl-adaptive border border-border/50 glass">
+        <div className="max-w-5xl mx-auto mb-16 animate-scale-in" style={{ animationDelay: "0.4s" }}>
+          <div className="relative rounded-2xl overflow-hidden shadow-2xl-adaptive hover:shadow-3xl-adaptive transition-shadow duration-300 border border-border/50 glass">
             <div className="aspect-video bg-gradient-to-br from-surface-2 to-surface-3 flex items-center justify-center">
               <div className="text-center">
-                <div className="w-20 h-20 rounded-full icon-bg-subtle flex items-center justify-center mx-auto mb-4">
+                <div className="w-20 h-20 rounded-full icon-bg-subtle flex items-center justify-center mx-auto mb-4 shadow-lg">
                   <Play className="w-10 h-10 icon-accent" />
                 </div>
                 <p className="text-text-muted font-medium">Demo em Vídeo</p>

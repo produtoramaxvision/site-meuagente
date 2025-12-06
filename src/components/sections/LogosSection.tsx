@@ -13,9 +13,36 @@ import { Link } from "react-router-dom";
 
 const LogosSection = () => {
   const badges = [
-    { icon: Shield, label: "LGPD Compliant", href: "/politica-de-privacidade" },
-    { icon: Award, label: "Segurança Garantida", href: "/termos-de-uso" },
-    { icon: Zap, label: "99.9% Uptime", href: "/status-do-sistema" },
+    {
+      icon: Shield,
+      label: "LGPD Compliant",
+      href: "/politica-de-privacidade",
+      bg: "bg-gradient-to-r from-emerald-500/14 via-emerald-500/8 to-emerald-500/0",
+      border: "border-emerald-400/50",
+      text: "text-emerald-700",
+      iconClass: "text-emerald-500",
+      shadow: "shadow-[0_18px_50px_-28px_rgba(16,185,129,0.55)]",
+    },
+    {
+      icon: Award,
+      label: "Segurança Garantida",
+      href: "/termos-de-uso",
+      bg: "bg-gradient-to-r from-amber-500/14 via-amber-500/8 to-amber-500/0",
+      border: "border-amber-400/50",
+      text: "text-amber-800",
+      iconClass: "text-amber-500",
+      shadow: "shadow-[0_18px_50px_-28px_rgba(245,158,11,0.55)]",
+    },
+    {
+      icon: Zap,
+      label: "99.9% Uptime",
+      href: "/status-do-sistema",
+      bg: "bg-gradient-to-r from-sky-500/14 via-sky-500/8 to-sky-500/0",
+      border: "border-sky-400/50",
+      text: "text-sky-800",
+      iconClass: "text-sky-500",
+      shadow: "shadow-[0_18px_50px_-28px_rgba(14,165,233,0.55)]",
+    },
   ];
 
   const sectors = [
@@ -36,10 +63,10 @@ const LogosSection = () => {
             <Link
               key={index}
               to={badge.href}
-              className="flex items-center gap-3 px-6 py-3 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 hover:border-accent transition-all duration-300 hover:scale-105 cursor-pointer"
+              className={`flex items-center gap-3 px-6 py-3 rounded-full ${badge.bg} backdrop-blur-sm border ${badge.border} ${badge.shadow} hover:border-accent transition-all duration-300 hover:-translate-y-0.5 hover:scale-105 cursor-pointer`}
             >
-              <badge.icon className="w-5 h-5 icon-accent" />
-              <span className="text-sm font-semibold text-text">{badge.label}</span>
+              <badge.icon className={`w-5 h-5 ${badge.iconClass}`} />
+              <span className={`text-sm font-semibold ${badge.text}`}>{badge.label}</span>
             </Link>
           ))}
         </div>
