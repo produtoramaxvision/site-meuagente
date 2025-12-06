@@ -50,22 +50,6 @@ const Footer = () => {
           backgroundSize: "32px 32px",
         }}
       />
-      {/* Newsletter section */}
-      <div className="relative z-10 bg-section-dark py-6">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-6">
-            <h3 className="text-2xl font-bold text-white mb-2">
-              🚀 Fique Por Dentro das Novidades
-            </h3>
-            <p className="text-white/80">
-              Receba dicas semanais de automação, IA e produtividade direto no seu email
-            </p>
-          </div>
-          <div className="max-w-md mx-auto">
-            <NewsletterSignup variant="compact" />
-          </div>
-        </div>
-      </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {/* Main footer content */}
