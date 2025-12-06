@@ -72,7 +72,6 @@ const Header = () => {
 
           {/* Mobile header actions */}
           <div className="flex items-center gap-2 md:hidden">
-            <AnimatedThemeToggler className="h-9 w-9" />
             <button
               type="button"
               aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
@@ -102,16 +101,6 @@ const Header = () => {
               </a>
             ))}
             <div className="px-4 pt-4 space-y-2">
-              <Button
-                variant="outline"
-                size="sm"
-                className="w-full justify-start gap-2"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              >
-                <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-                <span className="ml-4">{theme === "dark" ? "Modo Claro" : "Modo Escuro"}</span>
-              </Button>
               <Button
                 variant="outline"
                 size="sm"

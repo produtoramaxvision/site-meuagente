@@ -1,7 +1,6 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import { flushSync } from "react-dom"
 import { Moon, Sun } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 
@@ -15,20 +14,24 @@ type AnimatedThemeTogglerProps = {
 /**
  * Botão de alternância de tema com animação de ícone (Sun/Moon)
  * e transição radial usando View Transitions API (quando suportado).
- *
- * Mantém compatibilidade com `next-themes`, usando `setTheme`
- * para aplicar `light`/`dark` e sincronizar com o restante da aplicação.
+ * 
+ * CORREÇÕES PARA MOBILE:
+ * - Removida dependência de flushSync que causava múltiplos re-renders
+ * - View Transition API apenas em desktop (não suportada no Safari iOS)
+ * - Estado local desacoplado para evitar flickering durante animação
+ * - Transição de ícones otimizada com Framer Motion
  */
 export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null)
   const { resolvedTheme, setTheme } = useTheme()
+  
+  // Estado local para animação dos ícones (não causa re-render do tema)
+  const [darkMode, setDarkMode] = useState<boolean>(false)
+  const [isMounted, setIsMounted] = useState(false)
 
-  // Estado local só para dirigir a animação dos ícones
-  const [darkMode, setDarkMode] = useState<boolean>(() => resolvedTheme === "dark")
-
-  // Mantém o estado local sincronizado com o tema vindo do next-themes
+  // Sincroniza estado inicial após montagem
   useEffect(() => {
-    if (!resolvedTheme) return
+    setIsMounted(true)
     setDarkMode(resolvedTheme === "dark")
   }, [resolvedTheme])
 
@@ -36,58 +39,62 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
     const buttonEl = buttonRef.current
     if (!buttonEl) return
 
-    // OTIMIZAÇÃO: Ler propriedades de layout ANTES de qualquer mutação DOM
-    // Isso evita reflow forçado pois a leitura acontece quando o DOM está estável
-    const { left, top, width, height } = buttonEl.getBoundingClientRect()
-    const centerX = left + width / 2
-    const centerY = top + height / 2
-    // Em mobile, o visualViewport pode ser menor que a viewport real (barras dinâmicas).
-    // Usamos sempre o maior valor para garantir que o círculo cobre toda a tela.
-    const baseWidth = window.innerWidth
-    const baseHeight = window.innerHeight
-    const viewportWidth = Math.max(baseWidth, window.visualViewport?.width ?? 0)
-    const viewportHeight = Math.max(baseHeight, window.visualViewport?.height ?? 0)
-    const maxDistance = Math.hypot(
-      Math.max(centerX, viewportWidth - centerX),
-      Math.max(centerY, viewportHeight - centerY),
-    )
-
     const nextIsDark = !darkMode
+    
+    // Atualiza estado local IMEDIATAMENTE para animação do ícone
+    setDarkMode(nextIsDark)
 
-    const applyTheme = () => {
-      flushSync(() => {
-        setDarkMode(nextIsDark)
-        setTheme(nextIsDark ? "dark" : "light")
-      })
-    }
-
-    // Se View Transitions API não estiver disponível, faz apenas o toggle normal
-    const docAny = document as any
-    if (!docAny.startViewTransition) {
-      applyTheme()
+    // Detecta se é mobile (Safari iOS não suporta View Transitions)
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
+    const hasViewTransitions = 'startViewTransition' in document
+    
+    // Em mobile ou browsers sem suporte, apenas troca o tema
+    if (isMobile || !hasViewTransitions) {
+      setTheme(nextIsDark ? "dark" : "light")
       return
     }
 
-    const transition = docAny.startViewTransition(applyTheme)
-
-    await transition.ready
-
-    // Animação radial usando valores pré-calculados (sem reflow)
-    document.documentElement.animate(
-      {
-        clipPath: [
-          `circle(0px at ${centerX}px ${centerY}px)`,
-          `circle(${maxDistance}px at ${centerX}px ${centerY}px)`,
-        ],
-      },
-      {
-        duration: 700,
-        easing: "ease-in-out",
-        // @ts-expect-error – pseudoElement ainda não está tipado em todos os libs
-        pseudoElement: "::view-transition-new(root)",
-      },
+    // APENAS EM DESKTOP: View Transition API com animação radial
+    const { left, top, width, height } = buttonEl.getBoundingClientRect()
+    const centerX = left + width / 2
+    const centerY = top + height / 2
+    const maxDistance = Math.hypot(
+      Math.max(centerX, window.innerWidth - centerX),
+      Math.max(centerY, window.innerHeight - centerY)
     )
+
+    // @ts-expect-error - View Transitions API experimental
+    const transition = document.startViewTransition(() => {
+      setTheme(nextIsDark ? "dark" : "light")
+    })
+
+    try {
+      await transition.ready
+      
+      document.documentElement.animate(
+        {
+          clipPath: [
+            `circle(0px at ${centerX}px ${centerY}px)`,
+            `circle(${maxDistance}px at ${centerX}px ${centerY}px)`,
+          ],
+        },
+        {
+          duration: 600,
+          easing: "ease-in-out",
+          // @ts-expect-error - pseudoElement experimental
+          pseudoElement: "::view-transition-new(root)",
+        }
+      )
+    } catch (error) {
+      // Fallback silencioso se a animação falhar
+      console.warn("View Transition failed:", error)
+    }
   }, [darkMode, setTheme])
+
+  // Evita flash no SSR
+  if (!isMounted) {
+    return <div className={cn("h-9 w-9", className)} />
+  }
 
   return (
     <button
@@ -96,8 +103,9 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
       aria-label="Alternar tema"
       type="button"
       className={cn(
-        "inline-flex items-center justify-center rounded-full p-2 outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background transition-colors cursor-pointer",
-        "bg-transparent hover:bg-surface-2",
+        "inline-flex items-center justify-center rounded-full p-2 outline-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background cursor-pointer",
+        "bg-transparent hover:bg-surface-2 transition-colors",
+        "h-9 w-9",
         className,
       )}
     >
@@ -105,20 +113,28 @@ export const AnimatedThemeToggler = ({ className }: AnimatedThemeTogglerProps) =
         {darkMode ? (
           <motion.span
             key="sun-icon"
-            initial={{ opacity: 0, scale: 0.55, rotate: 25 }}
+            initial={{ opacity: 0, scale: 0.5, rotate: 45 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="text-amber-300"
+            exit={{ opacity: 0, scale: 0.5, rotate: -45 }}
+            transition={{ 
+              duration: 0.25, 
+              ease: [0.4, 0, 0.2, 1] // cubic-bezier para suavidade
+            }}
+            className="text-amber-400"
           >
             <Sun className="h-5 w-5" />
           </motion.span>
         ) : (
           <motion.span
             key="moon-icon"
-            initial={{ opacity: 0, scale: 0.55, rotate: -25 }}
+            initial={{ opacity: 0, scale: 0.5, rotate: -45 }}
             animate={{ opacity: 1, scale: 1, rotate: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
-            className="text-slate-900 dark:text-slate-50"
+            exit={{ opacity: 0, scale: 0.5, rotate: 45 }}
+            transition={{ 
+              duration: 0.25, 
+              ease: [0.4, 0, 0.2, 1] // cubic-bezier para suavidade
+            }}
+            className="text-slate-700 dark:text-slate-300"
           >
             <Moon className="h-5 w-5" />
           </motion.span>
