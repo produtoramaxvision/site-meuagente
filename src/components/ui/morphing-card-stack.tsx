@@ -139,7 +139,8 @@ export function MorphingCardStack({
   return (
     <div className={cn("space-y-6", className)}>
       {/* Layout Toggle */}
-      <div className="flex items-center justify-center gap-1 rounded-lg bg-subtle-10 p-1 w-fit mx-auto">
+      <div className="group relative overflow-hidden flex items-center justify-center gap-1 rounded-lg bg-white/8 backdrop-blur-sm border border-white/20 shadow-xl-adaptive hover:shadow-2xl-adaptive transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 p-1 w-fit mx-auto">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
         {(Object.keys(layoutIcons) as LayoutMode[]).map((mode) => {
           const Icon = layoutIcons[mode]
           return (
@@ -147,10 +148,10 @@ export function MorphingCardStack({
               key={mode}
               onClick={() => setLayout(mode)}
               className={cn(
-                "rounded-md p-2.5 transition-all",
+                "relative rounded-md p-2.5 transition-all",
                 layout === mode
                   ? "bg-accent text-white shadow-md"
-                  : "text-text-muted hover:text-text hover:bg-subtle-5",
+                  : "text-text-muted hover:text-text hover:bg-white/5",
               )}
               aria-label={`Mudar para layout ${mode}`}
             >

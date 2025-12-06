@@ -72,8 +72,8 @@ const FaqSection = () => {
             </div>
 
             {/* Card de Suporte - altura independente do acordeão */}
-            <div className="flex flex-col justify-between p-6 rounded-2xl border border-subtle bg-gradient-subtle backdrop-blur-sm mt-2">
-              <div>
+            <div className="relative overflow-hidden flex flex-col justify-between p-6 rounded-2xl border border-subtle bg-gradient-subtle backdrop-blur-sm mt-2 shadow-xl-adaptive hover:shadow-2xl-adaptive transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01]">
+              <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="h-10 w-10 rounded-full bg-surface-2 flex items-center justify-center text-text shadow-sm">
                     <Sparkles className="h-5 w-5" />
@@ -87,13 +87,14 @@ const FaqSection = () => {
                 </p>
               </div>
               <Button
-                className="w-full mt-auto group relative overflow-hidden btn-primary-gradient shadow-xl-adaptive hover:shadow-2xl-adaptive"
+                className="w-full mt-auto group relative overflow-hidden bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white shadow-xl-adaptive hover:shadow-2xl-adaptive transition-all duration-300 hover:scale-105 border border-white/30 px-6 py-4 text-base"
                 onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
               >
                 Falar com um especialista
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                 <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
               </Button>
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-white/10 opacity-70" />
             </div>
           </div>
 

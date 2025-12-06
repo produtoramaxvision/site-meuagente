@@ -366,7 +366,7 @@ const ProductShowcaseSection = () => {
           <div className="lg:col-span-8 w-full min-w-0">
             {useCases.map((useCase) => (
               <TabsContent key={useCase.id} value={useCase.id} className="mt-0 w-full focus-visible:ring-0">
-                <Card className="relative overflow-hidden border-border/70 bg-gradient-to-br from-surface-2 via-surface to-surface-3 shadow-2xl-adaptive md:mt-4 lg:mt-6 w-full max-w-full">
+                <Card className="relative overflow-hidden border border-border/70 bg-gradient-to-br from-surface-2 via-surface to-surface-3 shadow-xl-adaptive hover:shadow-2xl-adaptive md:mt-4 lg:mt-6 w-full max-w-full backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01]">
                   {/* Glow de fundo */}
                   <div className="pointer-events-none absolute -top-40 left-1/3 h-72 w-72 rounded-full bg-subtle-25 blur-3xl" />
 
@@ -404,9 +404,10 @@ const ProductShowcaseSection = () => {
                     </div>
 
                     <div className="grid gap-4 md:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] items-stretch md:min-h-[420px] lg:min-h-[460px] w-full max-w-full">
-                      {/* Conversa em si */}
-                      <ScrollArea className="h-full min-h-[340px] sm:min-h-[400px] rounded-2xl border border-border/60 bg-[#0b141a] bg-[radial-gradient(circle_at_1px_1px,#202c33_1px,transparent_0)] bg-[length:26px_26px] p-4 w-full max-w-full">
-                        <div className="flex h-full flex-col justify-end space-y-3 text-[13px] leading-relaxed w-full">
+                    {/* Conversa em si */}
+                    <ScrollArea className="relative h-full min-h-[340px] sm:min-h-[400px] rounded-2xl border border-border/60 bg-[rgba(11,20,26,0.95)] bg-[radial-gradient(circle_at_1px_1px,#202c33_1px,transparent_0)] bg-[length:26px_26px] p-4 w-full max-w-full backdrop-blur-sm shadow-xl-adaptive hover:shadow-2xl-adaptive transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-emerald-400/5 opacity-70" />
+                      <div className="relative flex h-full flex-col justify-end space-y-3 text-[13px] leading-relaxed w-full">
                           {messagesByUseCase[useCase.id].map((msg, index) => (
                             <div
                               key={index}
@@ -505,7 +506,7 @@ const ProductShowcaseSection = () => {
                     </div>
 
                     {/* Input fake do chat */}
-                    <div className="mt-2 flex items-center gap-3 rounded-full bg-background/90 px-3 py-2 text-[13px] text-text-muted border border-border/60">
+                    <div className="group relative overflow-hidden mt-2 flex items-center gap-3 rounded-full bg-background/90 px-3 py-2 text-[13px] text-text-muted border border-border/60 backdrop-blur-sm shadow-xl-adaptive hover:shadow-2xl-adaptive transition-all duration-300 hover:scale-[1.01]">
                       <div className="h-7 w-7 rounded-full bg-emerald-500/15 flex items-center justify-center">
                         <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
                       </div>
@@ -515,10 +516,11 @@ const ProductShowcaseSection = () => {
                       </span>
                       <Button
                         size="sm"
-                        className="h-7 rounded-full px-3 text-[11px] btn-primary-gradient"
+                        className="h-7 rounded-full px-3 text-[11px] btn-primary-gradient shadow-sm transition-all duration-300 hover:shadow-md"
                       >
                         Enviar
                       </Button>
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                     </div>
                   </div>
                 </Card>
