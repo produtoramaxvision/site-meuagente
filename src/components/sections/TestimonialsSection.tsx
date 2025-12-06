@@ -105,6 +105,9 @@ const AnimatedTestimonials = ({
                   <img
                     src={testimonial.src}
                     alt={testimonial.name}
+                    width="320"
+                    height="320"
+                    loading="lazy"
                     draggable={false}
                     className="h-full w-full rounded-3xl object-cover object-center shadow-xl-adaptive"
                   />

@@ -152,6 +152,18 @@ export default defineConfig(({ mode }) => {
       "@": path.resolve(__dirname, "./src"),
     },
   },
+    // Otimização de dependências
+    optimizeDeps: {
+      include: [
+        "react",
+        "react-dom",
+        "react-router-dom",
+        "@radix-ui/react-dialog",
+        "@radix-ui/react-dropdown-menu",
+        "lucide-react",
+      ],
+      exclude: ["@fontsource/inter"],
+    },
     // Configuração de CSS otimizada
     css: {
       // Minificar CSS com esbuild (mais rápido)

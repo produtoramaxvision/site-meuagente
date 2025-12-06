@@ -153,6 +153,9 @@ const BlogPost = () => {
               <img 
                 src={post.coverImage} 
                 alt={post.title}
+                width="1200"
+                height="630"
+                fetchpriority="high"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -284,6 +287,9 @@ const BlogPost = () => {
                       <img 
                         src={relatedPost.coverImage} 
                         alt={relatedPost.title}
+                        width="600"
+                        height="340"
+                        loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                       />
                     </div>

@@ -25,12 +25,18 @@ const Header = () => {
               <img 
                 src="/meuagente_logo_transparente-preto.png" 
                 alt="Meu Agente" 
+                width="200"
+                height="80"
                 className="h-16 sm:h-20 w-auto dark:hidden"
+                fetchpriority="high"
               />
               <img 
                 src="/meuagente_logo_transparente-branco.png" 
                 alt="Meu Agente" 
+                width="200"
+                height="80"
                 className="h-16 sm:h-20 w-auto hidden dark:block"
+                fetchpriority="high"
               />
             </a>
           </div>

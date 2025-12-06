@@ -59,12 +59,18 @@ const Footer = () => {
             <img
               src="/logo-horizontal-preto.png"
               alt="Meu Agente"
+              width="240"
+              height="80"
               className="h-16 sm:h-20 w-auto dark:hidden"
+              loading="lazy"
             />
             <img
               src="/logo-horizontal-branco.png"
               alt="Meu Agente"
+              width="240"
+              height="80"
               className="h-16 sm:h-20 w-auto hidden dark:block"
+              loading="lazy"
             />
           </div>
 

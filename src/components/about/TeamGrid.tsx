@@ -107,6 +107,9 @@ export function TeamGrid() {
                   <img
                     src={member.src}
                     alt={member.name}
+                    width="160"
+                    height="160"
+                    loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                 ) : (

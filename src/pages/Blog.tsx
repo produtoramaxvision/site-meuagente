@@ -135,6 +135,9 @@ const Blog = () => {
                     <img
                       src={post.coverImage}
                       alt={post.title}
+                      width="1200"
+                      height="630"
+                      loading={index === 0 ? "eager" : "lazy"}
                       className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/90 via-background/10 to-transparent" />
@@ -249,6 +252,9 @@ const Blog = () => {
                           <img
                             src={post.coverImage}
                             alt={post.title}
+                            width="800"
+                            height="450"
+                            loading="lazy"
                             className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                           />
                         </div>
