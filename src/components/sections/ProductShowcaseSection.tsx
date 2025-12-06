@@ -350,12 +350,13 @@ const ProductShowcaseSection = () => {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="text-xs"
+                  className="group relative overflow-hidden text-xs shadow-xl-adaptive hover:shadow-2xl-adaptive transition-all duration-300 hover:scale-105 backdrop-blur-sm bg-white/5 text-white border border-white/30"
                   onClick={() =>
                     window.open("https://app.meuagente.api.br", "_blank")
                   }
                 >
                   Explorar no app
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
                 </Button>
               </div>
             </Card>

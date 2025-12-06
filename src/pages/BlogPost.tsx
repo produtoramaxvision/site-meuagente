@@ -324,11 +324,12 @@ const BlogPost = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg"
-              className="bg-white text-gray-900 hover:bg-white/90 shadow-2xl-adaptive"
+              className="group relative overflow-hidden bg-white text-gray-900 hover:bg-white/90 backdrop-blur-sm shadow-xl-adaptive hover:shadow-2xl-adaptive transition-all duration-300 hover:scale-105"
               onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
             >
               Criar Conta Gratuita
               <ArrowRight className="ml-2 h-5 w-5" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-gray-900/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700" />
             </Button>
             <Button 
               size="lg"

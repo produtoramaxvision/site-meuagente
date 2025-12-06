@@ -164,16 +164,18 @@ const AnimatedTestimonials = ({
           <div className="flex gap-4 pt-10 md:pt-12">
             <button
               onClick={handlePrev}
-              className="h-9 w-9 rounded-full bg-secondary flex items-center justify-center group/button hover:bg-secondary/80 transition-colors"
+              className="relative h-9 w-9 rounded-full bg-secondary/90 flex items-center justify-center group/button hover:bg-secondary/80 transition-all duration-300 hover:scale-105 shadow-xl-adaptive hover:shadow-2xl-adaptive backdrop-blur-sm overflow-hidden"
               aria-label="Depoimento anterior"
             >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/button:translate-x-full transition-transform duration-700" />
               <ArrowLeft className="h-5 w-5 text-foreground group-hover/button:rotate-12 transition-transform duration-300" />
             </button>
             <button
               onClick={handleNext}
-              className="h-9 w-9 rounded-full bg-secondary flex items-center justify-center group/button hover:bg-secondary/80 transition-colors"
+              className="relative h-9 w-9 rounded-full bg-secondary/90 flex items-center justify-center group/button hover:bg-secondary/80 transition-all duration-300 hover:scale-105 shadow-xl-adaptive hover:shadow-2xl-adaptive backdrop-blur-sm overflow-hidden"
               aria-label="Próximo depoimento"
             >
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover/button:translate-x-full transition-transform duration-700" />
               <ArrowRight className="h-5 w-5 text-foreground group-hover/button:-rotate-12 transition-transform duration-300" />
             </button>
           </div>

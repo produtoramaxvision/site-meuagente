@@ -26,7 +26,7 @@ const FinalCTASection = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
           <Button 
             size="lg" 
-            className="group relative overflow-hidden bg-white text-gray-900 hover:bg-white/90 shadow-2xl-adaptive hover:shadow-white/20 transition-all duration-300 hover:scale-105 text-lg px-8 py-6"
+            className="group relative overflow-hidden bg-white text-gray-900 hover:bg-white/90 backdrop-blur-sm shadow-xl-adaptive hover:shadow-2xl-adaptive transition-all duration-300 hover:scale-105 text-lg px-8 py-6 border border-white/40"
             onClick={() => window.open("https://app.meuagente.api.br", "_blank")}
           >
             Criar Conta Gratuita

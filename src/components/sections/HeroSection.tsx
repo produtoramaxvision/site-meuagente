@@ -55,10 +55,11 @@ const HeroSection = () => {
           <Button 
             size="lg" 
             variant="outline" 
-            className="group btn-secondary transition-all duration-300 w-full sm:w-[240px]"
+            className="group relative overflow-hidden btn-secondary transition-all duration-300 w-full sm:w-[240px] shadow-xl-adaptive hover:shadow-2xl-adaptive hover:scale-105 backdrop-blur-sm bg-white/5 text-white border border-white/30"
           >
             <Play className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
             Ver Como Funciona
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
           </Button>
         </div>
 
