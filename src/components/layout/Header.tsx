@@ -70,6 +70,7 @@ const Header = () => {
 
           {/* Mobile header actions */}
           <div className="flex items-center gap-2 md:hidden">
+            <AnimatedThemeToggler className="h-9 w-9" />
             <button
               type="button"
               aria-label={mobileMenuOpen ? "Fechar menu" : "Abrir menu"}
