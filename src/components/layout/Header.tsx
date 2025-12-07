@@ -22,19 +22,19 @@ const Header = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <a href="/" className="flex items-center gap-2">
-              <img 
-                src="/meuagente_logo_transparente-preto.png" 
-                alt="Meu Agente" 
-                width="200"
-                height="80"
+              <img
+                src="/meuagente_logo_transparente-preto.png"
+                alt="Meu Agente"
+                width="1000"
+                height="1000"
                 className="h-16 sm:h-20 w-auto dark:hidden"
                 fetchpriority="high"
               />
-              <img 
-                src="/meuagente_logo_transparente-branco.png" 
-                alt="Meu Agente" 
-                width="200"
-                height="80"
+              <img
+                src="/meuagente_logo_transparente-branco.png"
+                alt="Meu Agente"
+                width="1000"
+                height="1000"
                 className="h-16 sm:h-20 w-auto hidden dark:block"
                 fetchpriority="high"
               />
