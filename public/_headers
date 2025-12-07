@@ -1,0 +1,23 @@
+# Cache agressivo para assets estáticos no edge
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# HTML não deve ser cacheado (SPA)
+/index.html
+  Cache-Control: no-store
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Cabeçalhos de segurança leves (Cloudflare já aplica TLS/HSTS)
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  X-XSS-Protection: 0
+  Referrer-Policy: strict-origin-when-cross-origin
+
