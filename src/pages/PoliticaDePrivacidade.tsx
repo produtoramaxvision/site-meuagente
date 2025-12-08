@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Home, ChevronRight, ShieldCheck, FileText, Lock, Clock, Shield } from "lucide-react";
 import SEO from "@/components/SEO";
-import politicaDePrivacidadeMarkdown from "../../docs/politica-de-privacidade.md?raw";
+import politicaDePrivacidadeMarkdown from "../../docs/docs-site/politica-de-privacidade.md?raw";
 
 const PoliticaDePrivacidade = () => {
   const [activeHeading, setActiveHeading] = useState<string>("");

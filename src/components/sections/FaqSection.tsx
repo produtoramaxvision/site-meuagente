@@ -37,7 +37,7 @@ const FaqSection = () => {
     {
       question: "Posso testar antes de contratar um plano pago?",
       answer:
-        "Sim. Você pode começar pelo plano Free para conhecer os agentes e entender como eles se encaixam na sua rotina. Quando fizer sentido automatizar de vez, é só migrar para um dos planos pagos sem perder histórico.",
+        "Sim. Comece no Free para testar no app/Chat IA (sem automação externa). Quer usar WhatsApp para finanças e agenda? Vá para o Lite. Depois, quando precisar de automação completa e exportações, avance para os planos superiores sem perder histórico.",
     },
     {
       question: "E se eu precisar de ajuda para configurar meus agentes?",

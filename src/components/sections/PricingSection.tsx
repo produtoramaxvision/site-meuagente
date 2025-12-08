@@ -1,61 +1,114 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
 import { Check, X, Loader2 } from "lucide-react";
 import { useSubscription } from "@/hooks/use-subscription";
+import { useRef, useState } from "react";
+import confetti from "canvas-confetti";
+import NumberFlow from "@number-flow/react";
 
 const PricingSection = () => {
   const { handleSubscribe, loading } = useSubscription();
+
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
+  const switchRef = useRef<HTMLButtonElement | null>(null);
+
+  const handleToggle = (checked: boolean) => {
+    setBillingCycle(checked ? "annual" : "monthly");
+    if (checked && switchRef.current) {
+      const rect = switchRef.current.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { x: x / window.innerWidth, y: y / window.innerHeight },
+        colors: ["hsl(var(--accent))", "hsl(var(--primary))", "hsl(var(--muted))"],
+        ticks: 160,
+        gravity: 1.05,
+        decay: 0.92,
+        startVelocity: 28,
+        shapes: ["circle"],
+      });
+    }
+  };
+
+  const formatBRL = (value: number) =>
+    value.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 });
 
   const plans = [
     {
       id: "free",
       name: "Free",
-      price: "R$ 0",
+      priceMonthly: 0,
+      priceAnnual: 0,
       period: "gratuito",
-      description: "Explore sem custo",
+      description: "Explore no app e Chat IA, sem automação externa",
       badge: null,
       features: [
-        { text: "Agente Financeiro", included: true },
-        { text: "Agente Web Search", included: true },
-        { text: "Agente de Scrape (básico)", included: true },
-        { text: "Automação via WhatsApp", included: false },
+        { text: "App + Chat IA (sem automação fora do app)", included: true },
+        { text: "Agente Financeiro manual", included: true },
+        { text: "Web Search básico (manual/Chat IA)", included: true },
+        { text: "Scrape básico (manual/Chat IA)", included: true },
+        { text: "Uso via WhatsApp (áudio/foto)", included: false },
+        { text: "Automação fora do app", included: false },
         { text: "Exportação CSV/PDF", included: false },
         { text: "Número de WhatsApp próprio", included: false },
-        { text: "Sub-agentes Business", included: false },
-        { text: "Suporte prioritário", included: false },
       ],
       cta: "Começar Agora",
       popular: false,
     },
     {
+      id: "lite",
+      name: "Lite",
+      priceMonthly: 97.9,
+      priceAnnual: 1076.9,
+      period: "/mês",
+      description: "Tudo do Free + WhatsApp para finanças e agenda",
+      badge: "MAIS POPULAR",
+      features: [
+        { text: "Tudo do Free", included: true },
+        { text: "Financeiro no WhatsApp (áudio/foto)", included: true },
+        { text: "Agendamento no WhatsApp (áudio/foto)", included: true },
+        { text: "Respostas via canal WhatsApp compartilhado", included: true },
+        { text: "Exportação CSV/PDF", included: false },
+        { text: "Automação fora do app", included: false },
+        { text: "Número de WhatsApp próprio", included: false },
+        { text: "Suporte prioritário", included: false },
+      ],
+      cta: "Contratar Lite",
+      popular: true,
+    },
+    {
       id: "basic",
       name: "Básico",
-      price: "R$ 497",
+      priceMonthly: 497,
+      priceAnnual: 5467,
       period: "/mês",
-      description: "Para profissionais e pequenas equipes",
+      description: "Automação completa via WhatsApp, com exportações",
       badge: null,
       features: [
-        { text: "Tudo do Free +", included: true },
-        { text: "Automação via WhatsApp", included: true },
+        { text: "Tudo do Lite + automações via WhatsApp", included: true },
         { text: "Exportação CSV/PDF", included: true },
+        { text: "Agente Web Search intermediário", included: true },
         { text: "Agente Scrape intermediário", included: true },
-        { text: "Agente Agendamento", included: true },
-        { text: "Lançamentos manuais", included: true },
+        { text: "Agente Agendamento (Calendar/Drive/Tasks)", included: true },
         { text: "Número de WhatsApp próprio", included: false },
         { text: "Implantação inclusa", included: false },
         { text: "Suporte prioritário", included: false },
       ],
-      cta: "Começar Agora",
+      cta: "Contratar Básico",
       popular: false,
     },
     {
       id: "business",
       name: "Business",
-      price: "R$ 997",
+      priceMonthly: 997,
+      priceAnnual: 10967,
       period: "/mês",
       description: "Para empresas em crescimento",
-      badge: "MAIS POPULAR",
+      badge: "MELHOR VALOR",
       features: [
         { text: "Tudo do Básico +", included: true },
         { text: "Número de WhatsApp próprio", included: true },
@@ -67,15 +120,16 @@ const PricingSection = () => {
         { text: "Treinamento da IA e Manutenção R$ 149,00/hr, somente quando solicitado", included: true },
       ],
       cta: "Contratar Business",
-      popular: true,
+      popular: false,
     },
     {
       id: "premium",
       name: "Premium",
-      price: "R$ 1.497",
+      priceMonthly: 1497,
+      priceAnnual: 16467,
       period: "/mês",
       description: "Tudo do Business + recursos exclusivos",
-      badge: "MELHOR VALOR",
+      badge: null,
       features: [
         { text: "Tudo do Business +", included: true },
         { text: "Agente de Confirmação", included: true },
@@ -96,7 +150,7 @@ const PricingSection = () => {
     if (planId === "free") {
       window.open("https://app.meuagente.api.br/?plan=free", "_blank");
     } else {
-      handleSubscribe(planId);
+      handleSubscribe(planId, billingCycle);
     }
   };
 
@@ -111,10 +165,23 @@ const PricingSection = () => {
           <p className="text-xl text-text-muted max-w-2xl mx-auto">
             Escolha o plano ideal para o tamanho do seu negócio
           </p>
+          <div className="mt-6 flex items-center justify-center gap-3 text-sm">
+            <span className={billingCycle === "monthly" ? "font-semibold text-text" : "text-text-muted"}>Mensal</span>
+            <Switch
+              ref={switchRef as any}
+              checked={billingCycle === "annual"}
+              onCheckedChange={handleToggle}
+              aria-label="Alternar faturamento anual"
+              className="data-[state=checked]:bg-primary"
+            />
+            <span className={billingCycle === "annual" ? "font-semibold text-text flex items-center gap-1" : "text-text-muted flex items-center gap-1"}>
+              Anual <span className="text-primary font-bold text-[11px]">(1 mês grátis)</span>
+            </span>
+          </div>
         </div>
 
         {/* Pricing cards – alinhados com a grade da página de Planos (Tabs “Visão por plano”) */}
-        <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4 items-stretch">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 items-stretch">
           {plans.map((plan, index) => (
             <Card
               key={index}
@@ -137,9 +204,23 @@ const PricingSection = () => {
               <div className="mb-6">
                 <h3 className="text-2xl font-bold text-text mb-2">{plan.name}</h3>
                 <div className="flex items-baseline gap-1 mb-2">
-                  <span className="text-4xl font-extrabold text-text">{plan.price}</span>
-                  <span className="text-text-muted">{plan.period}</span>
+                  {plan.id === "free" ? (
+                    <span className="text-4xl font-extrabold text-text">{formatBRL(plan.priceMonthly)}</span>
+                  ) : (
+                    <>
+                      <span className="text-xl text-text">R$</span>
+                      <NumberFlow
+                        value={billingCycle === "monthly" ? plan.priceMonthly : plan.priceAnnual}
+                        format={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }}
+                        className="text-4xl font-extrabold text-text"
+                      />
+                    </>
+                  )}
+                  <span className="text-text-muted">{billingCycle === "monthly" ? "/mês" : "/ano"}</span>
                 </div>
+                {plan.id !== "free" && billingCycle === "monthly" && plan.priceAnnual > 0 && (
+                  <p className="text-xs text-text-muted">Anual: {formatBRL(plan.priceAnnual)} (1 mês grátis)</p>
+                )}
                 <p className="text-sm text-text-muted">{plan.description}</p>
               </div>
 

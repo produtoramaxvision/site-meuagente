@@ -157,6 +157,9 @@ export function AboutProduct() {
             em um número de WhatsApp para cuidar de atendimento, operações e automação do seu negócio —
             reduzindo tempo operacional, aumentando conversão e padronizando processos.
           </p>
+          <p className="text-sm sm:text-base text-text-muted leading-relaxed mb-4">
+            Free: uso no app/Chat IA, sem automação externa. Lite: tudo do Free + Agente Financeiro e Agendamento via WhatsApp (áudio/foto) em canal compartilhado. A partir do Básico liberamos automações completas e exportações.
+          </p>
           <p className="text-sm sm:text-base text-text-muted leading-relaxed">
             Nos planos Business e Premium, você conta com número dedicado, implantação inclusa,
             suporte 24/7 e sub-agentes especializados para finanças, marketing, agendamento, desenvolvimento

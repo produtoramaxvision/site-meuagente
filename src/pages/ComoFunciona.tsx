@@ -29,13 +29,13 @@ const ComoFunciona = () => {
       id: "financeiro",
       icon: DollarSign,
       name: "Agente Financeiro",
-      tier: "Todos os planos",
+      tier: "Free (app/Chat IA) • Lite+ no WhatsApp",
       tierBadge: "FREE",
       color: "from-green-500/10 to-emerald-500/10",
       iconColor: "text-green-600 dark:text-green-400",
       description: `O Agente Financeiro é a espinha dorsal do controle financeiro empresarial dentro do Meu Agente. Com ele, você registra entradas e saídas, categoriza transações (marketing, operação, impostos, etc.) e recebe alertas automáticos sobre contas vencendo ou saldo negativo.
 
-Nos planos pagos, você pode exportar relatórios completos em CSV/PDF, aplicar filtros avançados por período e categoria, e ter validação automática de duplicatas para evitar lançamentos acidentais.
+No Lite, ele aceita áudios e fotos de comprovantes pelo WhatsApp (canal compartilhado) e lança automaticamente. A partir do Básico, você pode exportar relatórios completos em CSV/PDF, aplicar filtros avançados por período e categoria e ter validação automática de duplicatas para evitar lançamentos acidentais.
 
 O agente processa linguagem natural, então você pode simplesmente enviar mensagens como falaria com um contador humano, e ele entende perfeitamente o contexto, valores, datas e categorias.`,
       examples: [
@@ -154,8 +154,8 @@ Elimine a necessidade de ficar entrando no painel do Google Ads diariamente — 
       id: "agendamento",
       icon: Calendar,
       name: "Agente de Agendamento",
-      tier: "Básico/Business/Premium",
-      tierBadge: "BÁSICO",
+      tier: "Lite/Básico/Business/Premium",
+      tierBadge: "LITE",
       color: "from-indigo-500/10 to-blue-500/10",
       iconColor: "text-indigo-600 dark:text-indigo-400",
       description: `O Agente de Agendamento integra-se ao Google Calendar, Drive e Tasks para gerenciar compromissos, arquivos e tarefas direto do WhatsApp. Crie eventos, anexe documentos, configure lembretes e sincronize tudo com a equipe sem abrir nenhum app.
@@ -655,7 +655,17 @@ No plano Premium, você tem cota maior de minutos de geração, permitindo escal
                         >
                           {agent.tierBadge === "FREE"
                             ? "Testar este agente agora"
-                            : `Liberar no meu plano ${agent.tierBadge === "BUSINESS" ? "Business" : "Premium"}`}
+                            : `Liberar no meu plano ${
+                                (
+                                  {
+                                    FREE: "Free/Lite",
+                                    LITE: "Lite",
+                                    "BÁSICO": "Básico",
+                                    BUSINESS: "Business",
+                                    PREMIUM: "Premium",
+                                  } as Record<string, string>
+                                )[agent.tierBadge] ?? agent.tierBadge
+                              }`}
                           <ArrowRight className="ml-2 h-4 w-4" />
                         </Button>
                       </div>

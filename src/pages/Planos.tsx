@@ -6,8 +6,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import { Check, X, Calculator, ArrowRight, Sparkles, Loader2 } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import NumberFlow from "@number-flow/react";
+import confetti from "canvas-confetti";
 import SEO from "@/components/SEO";
 import { createSoftwareApplicationSchema } from "@/lib/seo";
 import { useSubscription } from "@/hooks/use-subscription";
@@ -20,7 +23,32 @@ const Planos = () => {
   const [leadsLost, setLeadsLost] = useState(10);
   
   // Estado para controlar o plano selecionado no Hero
-  const [heroPlanId, setHeroPlanId] = useState("business");
+  const [heroPlanId, setHeroPlanId] = useState("lite");
+  const [billingCycle, setBillingCycle] = useState<"monthly" | "annual">("monthly");
+  const billingSwitchRef = useRef<HTMLButtonElement | null>(null);
+
+  const handleBillingToggle = (checked: boolean) => {
+    setBillingCycle(checked ? "annual" : "monthly");
+    if (checked && billingSwitchRef.current) {
+      const rect = billingSwitchRef.current.getBoundingClientRect();
+      const x = rect.left + rect.width / 2;
+      const y = rect.top + rect.height / 2;
+      confetti({
+        particleCount: 50,
+        spread: 60,
+        origin: { x: x / window.innerWidth, y: y / window.innerHeight },
+        colors: ["hsl(var(--accent))", "hsl(var(--primary))", "hsl(var(--muted))"],
+        ticks: 160,
+        gravity: 1.05,
+        decay: 0.92,
+        startVelocity: 28,
+        shapes: ["circle"],
+      });
+    }
+  };
+
+  const formatBRL = (value: number) =>
+    value.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 2 });
 
   const calculateROI = () => {
     const timeSavings = hoursPerMonth * costPerHour;
@@ -41,34 +69,59 @@ const Planos = () => {
     {
       id: "free",
       name: "Free",
-      price: "R$ 0",
+      priceMonthly: 0,
+      priceAnnual: 0,
       period: "gratuito",
-      description: "Explore sem custo",
+      description: "Explore no app e Chat IA, sem automação externa",
       badge: null,
       features: [
-        { text: "Acesso ao app em nuvem", included: true },
-        { text: "Agente Financeiro (manual)", included: true },
-        { text: "Agente Web Search", included: true },
-        { text: "Agente de Scrape (básico)", included: true },
-        { text: "Automação via WhatsApp", included: false },
+        { text: "Acesso ao app em nuvem + Chat IA", included: true },
+        { text: "Agente Financeiro (manual no app)", included: true },
+        { text: "Agente Web Search básico (manual/Chat IA)", included: true },
+        { text: "Agente de Scrape básico (manual/Chat IA)", included: true },
+        { text: "Automação fora do app", included: false },
+        { text: "Uso via WhatsApp (áudio/foto)", included: false },
+        { text: "Agente de Agendamento", included: false },
         { text: "Exportação CSV/PDF", included: false },
         { text: "Número de WhatsApp próprio", included: false },
-        { text: "Backups", included: false },
-        { text: "Suporte", included: false },
+        { text: "Suporte prioritário", included: false },
         { text: "Sub-agentes Business/Premium", included: false },
       ],
       cta: "Começar Agora",
       popular: false,
     },
     {
+      id: "lite",
+      name: "Lite",
+      priceMonthly: 97.9,
+      priceAnnual: 1076.9,
+      period: "/mês",
+      description: "Tudo do Free + WhatsApp para finanças e agenda",
+      badge: "MAIS POPULAR",
+      features: [
+        { text: "Tudo do Free (websearch/scrape básicos manual/Chat IA)", included: true },
+        { text: "Agente Financeiro no WhatsApp (áudio/foto de comprovantes)", included: true },
+        { text: "Agente de Agendamento no WhatsApp (áudio/foto)", included: true },
+        { text: "Respostas 24/7 via canal WhatsApp compartilhado", included: true },
+        { text: "Exportação CSV/PDF", included: false },
+        { text: "Automação fora do app (além do WhatsApp Lite)", included: false },
+        { text: "Número de WhatsApp próprio", included: false },
+        { text: "Suporte prioritário", included: false },
+        { text: "Sub-agentes Business/Premium", included: false },
+      ],
+      cta: "Contratar Lite",
+      popular: true,
+    },
+    {
       id: "basic",
       name: "Básico",
-      price: "R$ 497",
+      priceMonthly: 497,
+      priceAnnual: 5467,
       period: "/mês",
-      description: "Para profissionais e pequenas equipes",
+      description: "Automação completa via WhatsApp, com exportações",
       badge: null,
       features: [
-        { text: "Tudo do Free + Automações via WhatsApp", included: true },
+        { text: "Tudo do Lite + automações via WhatsApp", included: true },
         { text: "Exportação CSV/PDF", included: true },
         { text: "Agente Web Search intermediário", included: true },
         { text: "Agente Scrape intermediário", included: true },
@@ -86,10 +139,11 @@ const Planos = () => {
     {
       id: "business",
       name: "Business",
-      price: "R$ 997",
+      priceMonthly: 997,
+      priceAnnual: 10967,
       period: "/mês",
       description: "Para empresas em crescimento",
-      badge: "MAIS POPULAR",
+      badge: "MELHOR VALOR",
       features: [
         { text: "Tudo do Básico +", included: true },
         { text: "Número de WhatsApp próprio", included: true },
@@ -103,15 +157,16 @@ const Planos = () => {
         { text: "Treinamento da IA e Manutenção R$ 149,00/hr, somente quando solicitado", included: true },
       ],
       cta: "Contratar Business",
-      popular: true,
+      popular: false,
     },
     {
       id: "premium",
       name: "Premium",
-      price: "R$ 1.497",
+      priceMonthly: 1497,
+      priceAnnual: 16467,
       period: "/mês",
       description: "Tudo do Business + recursos exclusivos",
-      badge: "MELHOR VALOR",
+      badge: null,
       features: [
         { text: "Tudo do Business +", included: true },
         { text: "Agente de Confirmação (diário)", included: true },
@@ -130,28 +185,34 @@ const Planos = () => {
     },
   ];
 
-  const popularPlan = plans.find((plan) => plan.popular) ?? plans[2];
-  
   // Plano ativo no Hero
-  const heroPlan = plans.find((plan) => plan.id === heroPlanId) ?? plans[2];
-  const heroPlanIncludedFeatures = heroPlan.features.filter((feature) => feature.included);
-  const heroPlanExtraIncludedCount = Math.max(heroPlanIncludedFeatures.length - 7, 0);
+  const heroPlan = plans.find((plan) => plan.id === heroPlanId) ?? plans[0];
   const heroPlanMissingAdvancedCount = heroPlan.features.filter((feature) => !feature.included).length;
+  const heroPriceValue = billingCycle === "monthly" ? heroPlan.priceMonthly : heroPlan.priceAnnual;
+  const heroPriceLabel = formatBRL(heroPriceValue ?? 0);
 
   const onPlanClick = (planId: string) => {
     if (planId === "free") {
       window.open("https://app.meuagente.api.br/?plan=free", "_blank");
     } else {
-      handleSubscribe(planId);
+      handleSubscribe(planId, billingCycle);
     }
   };
 
   return (
     <>
       <SEO
-        title="Planos e Preços – Meu Agente | A partir de R$ 497/mês"
-        description="Escolha o plano ideal: Free (gratuito), Básico (R$ 497/mês), Business (R$ 997/mês) ou Premium (R$ 1.497/mês). Compare recursos, calcule ROI e contrate online."
-        keywords={["planos meu agente", "preços automação whatsapp", "quanto custa agente ia", "sdr virtual preço", "whatsapp business preço"]}
+        title="Planos e Preços – Meu Agente | A partir de R$ 97,90/mês"
+        description="Escolha o plano ideal: Free (gratuito, sem automação externa), Lite (R$ 97,90/mês com WhatsApp para finanças/agenda), Básico (R$ 497/mês), Business (R$ 997/mês) ou Premium (R$ 1.497/mês). Compare recursos, calcule ROI e contrate online."
+        keywords={[
+          "planos meu agente",
+          "preços automação whatsapp",
+          "plano lite meu agente",
+          "agente financeiro whatsapp",
+          "quanto custa agente ia",
+          "sdr virtual preço",
+          "whatsapp business preço",
+        ]}
         canonicalUrl="/planos"
         structuredData={createSoftwareApplicationSchema()}
       />
@@ -197,22 +258,39 @@ const Planos = () => {
                 
                 <div className="relative flex flex-col gap-6">
                   {/* Seletor de Planos */}
-                  <div className="flex justify-center mb-2">
-                    <div className="flex p-1 bg-surface/50 rounded-full border border-border/50 backdrop-blur-md">
-                      {plans.map((plan) => (
-                        <button
-                          key={plan.id}
-                          onClick={() => setHeroPlanId(plan.id)}
-                          className={cn(
-                            "px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200",
-                            heroPlanId === plan.id
-                              ? "btn-toggle-active"
-                              : "text-text-muted hover:text-text hover:bg-surface-2"
-                          )}
-                        >
-                          {plan.name}
-                        </button>
-                      ))}
+                  <div className="flex flex-col gap-3 mb-4 sm:flex-row sm:items-center sm:justify-between">
+                    <div className="flex justify-center">
+                      <div className="flex p-1 bg-surface/50 rounded-full border border-border/50 backdrop-blur-md">
+                        {plans.map((plan) => (
+                          <button
+                            key={plan.id}
+                            onClick={() => setHeroPlanId(plan.id)}
+                            className={cn(
+                              "px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200",
+                              heroPlanId === plan.id
+                                ? "btn-toggle-active"
+                                : "text-text-muted hover:text-text hover:bg-surface-2"
+                            )}
+                          >
+                            {plan.name}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-center gap-3 text-xs sm:text-sm">
+                      <span className={cn("font-semibold", billingCycle === "monthly" ? "text-text" : "text-text-muted")}>
+                        Mensal
+                      </span>
+                      <Switch
+                        ref={billingSwitchRef as any}
+                        checked={billingCycle === "annual"}
+                        onCheckedChange={handleBillingToggle}
+                        aria-label="Alternar faturamento anual"
+                        className="data-[state=checked]:bg-primary"
+                      />
+                      <span className={cn("font-semibold flex items-center gap-1", billingCycle === "annual" ? "text-text" : "text-text-muted")}>
+                        Anual <span className="text-primary font-bold text-[11px]">(1 mês grátis)</span>
+                      </span>
                     </div>
                   </div>
 
@@ -220,10 +298,10 @@ const Planos = () => {
                   <div className="flex flex-col gap-2 min-h-[88px]">
                     <div className="flex items-start justify-between gap-3 relative">
                       <div className="flex flex-col gap-1 w-full">
-                        {/* Label Recomendado (Business) - Absoluto ou ocupando espaço reservado */}
-                        {heroPlan.id === "business" && (
+                        {/* Label Recomendado - segue badge do plano */}
+                        {heroPlan.badge && (
                           <span className="absolute -top-6 left-0 text-[10px] font-bold uppercase tracking-wider badge-highlight px-2 py-0.5 rounded-sm backdrop-blur-sm border animate-in fade-in slide-in-from-bottom-2">
-                            Recomendado
+                            {heroPlan.badge}
                           </span>
                         )}
                         
@@ -249,11 +327,28 @@ const Planos = () => {
                   </div>
 
                   <div className="flex items-baseline gap-2">
-                    <span className="text-4xl font-extrabold text-text tabular-nums tracking-tight">
-                      {heroPlan.price}
+                    <span className="text-4xl font-extrabold text-text tabular-nums tracking-tight flex items-center gap-1">
+                      {heroPlan.id === "free" ? (
+                        heroPriceLabel
+                      ) : (
+                        <>
+                          <span className="text-xl">R$</span>
+                          <NumberFlow
+                            value={heroPriceValue ?? 0}
+                            format={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }}
+                            prefix=""
+                            className="text-4xl font-extrabold tracking-tight"
+                          />
+                        </>
+                      )}
                     </span>
-                    <span className="text-text-muted">{heroPlan.period}</span>
+                    <span className="text-text-muted">{billingCycle === "monthly" ? "/mês" : "/ano"}</span>
                   </div>
+                  {heroPlan.id !== "free" && billingCycle === "monthly" && heroPlan.priceAnnual > 0 && (
+                    <p className="text-xs text-text-muted">
+                      Anual: {formatBRL(heroPlan.priceAnnual)} (paga 11 de 12 meses)
+                    </p>
+                  )}
 
                   <ul className="space-y-2 text-sm min-h-[200px]">
                     {heroPlan.features.slice(0, 7).map((feature, index) => (
@@ -275,25 +370,12 @@ const Planos = () => {
                     <li className="text-xs text-text-muted pt-1 h-5 flex items-center">
                       {heroPlan.id === "premium" ? (
                         <span>
-                          Total de <strong>19</strong> recursos avançados incluídos.
-                        </span>
-                      ) : heroPlan.id === "business" ? (
-                        <span>
-                          Este plano deixa de fora{" "}
-                          <strong>7</strong> recursos avançados que podem turbinar seus
-                          resultados.
-                        </span>
-                      ) : heroPlan.id === "basic" ? (
-                        <span>
-                          Este plano deixa de fora{" "}
-                          <strong>11</strong> recursos avançados que podem turbinar seus
-                          resultados.
+                          Total de <strong>{heroPlan.features.length}</strong> recursos avançados incluídos.
                         </span>
                       ) : (
                         <span>
                           Este plano deixa de fora{" "}
-                          <strong>13</strong> recursos avançados que podem turbinar seus
-                          resultados.
+                          <strong>{heroPlanMissingAdvancedCount}</strong> recursos avançados disponíveis nos planos superiores.
                         </span>
                       )}
                     </li>
@@ -367,7 +449,7 @@ const Planos = () => {
               </TabsList>
 
               <TabsContent value="plans">
-                <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-4 items-stretch">
+                <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 items-stretch">
                   {plans.map((plan, index) => (
                   <Card
                       key={index}
@@ -388,9 +470,23 @@ const Planos = () => {
                       <div className="mb-6">
                         <h3 className="text-2xl font-bold text-text mb-2">{plan.name}</h3>
                         <div className="flex items-baseline gap-1 mb-2">
-                          <span className="text-4xl font-extrabold text-text">{plan.price}</span>
-                          <span className="text-text-muted">{plan.period}</span>
+                          {plan.id === "free" ? (
+                            <span className="text-4xl font-extrabold text-text">{formatBRL(plan.priceMonthly)}</span>
+                          ) : (
+                            <>
+                              <span className="text-xl text-text">R$</span>
+                              <NumberFlow
+                                value={billingCycle === "monthly" ? plan.priceMonthly : plan.priceAnnual}
+                                format={{ minimumFractionDigits: 2, maximumFractionDigits: 2 }}
+                                className="text-4xl font-extrabold text-text"
+                              />
+                            </>
+                          )}
+                          <span className="text-text-muted">{billingCycle === "monthly" ? "/mês" : "/ano"}</span>
                         </div>
+                        {plan.id !== "free" && billingCycle === "monthly" && plan.priceAnnual > 0 && (
+                          <p className="text-xs text-text-muted">Anual: {formatBRL(plan.priceAnnual)} (1 mês grátis)</p>
+                        )}
                         <p className="text-sm text-text-muted">{plan.description}</p>
                       </div>
 
@@ -467,10 +563,13 @@ const Planos = () => {
                           <th className="px-4 sm:px-6 py-4 text-center text-xs sm:text-sm font-semibold text-text">
                             Free
                           </th>
+                          <th className="px-4 sm:px-6 py-4 text-center text-xs sm:text-sm font-semibold text-text bg-subtle-5">
+                            Lite
+                          </th>
                           <th className="px-4 sm:px-6 py-4 text-center text-xs sm:text-sm font-semibold text-text">
                             Básico
                           </th>
-                          <th className="px-4 sm:px-6 py-4 text-center text-xs sm:text-sm font-semibold text-text bg-subtle-5">
+                          <th className="px-4 sm:px-6 py-4 text-center text-xs sm:text-sm font-semibold text-text">
                             Business
                           </th>
                           <th className="px-4 sm:px-6 py-4 text-center text-xs sm:text-sm font-semibold text-text">
@@ -485,10 +584,13 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <Check className="w-5 h-5 text-success mx-auto" />
                           </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                            <Check className="w-5 h-5 text-success mx-auto" />
+                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <Check className="w-5 h-5 text-success mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <Check className="w-5 h-5 text-success mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
@@ -497,18 +599,20 @@ const Planos = () => {
                         </tr>
                         <tr>
                           <td className="px-4 sm:px-6 py-4 text-sm text-text">Agente Web Search</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Básico</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Básico</td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5 text-xs">Intermediário</td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Básico (app/Chat IA)</td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5 text-xs">Básico (app/Chat IA)</td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Intermediário</td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Intermediário</td>
                           <td className="px-4 sm:px-6 py-4 text-center text-xs font-semibold text-success">
                             Avançado
                           </td>
                         </tr>
                         <tr>
                           <td className="px-4 sm:px-6 py-4 text-sm text-text">Agente de Scrape</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Básico</td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Básico</td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5 text-xs">Intermediário</td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Básico (app/Chat IA)</td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5 text-xs">Básico (app/Chat IA)</td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Intermediário</td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Intermediário</td>
                           <td className="px-4 sm:px-6 py-4 text-center text-xs font-semibold text-success">
                             Avançado
                           </td>
@@ -520,42 +624,61 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
                             <Check className="w-5 h-5 text-success mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <Check className="w-5 h-5 text-success mx-auto" />
+                          </td>
+                          <td className="px-4 sm:px-6 py-4 text-center">
+                            <Check className="w-5 h-5 text-success mx-auto" />
+                          </td>
+                          <td className="px-4 sm:px-6 py-4 text-center">
+                            <Check className="w-5 h-5 text-success mx-auto" />
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Reconhecimento de áudio/foto no WhatsApp</td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Não incluso</td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5 text-xs font-semibold text-success">
+                            Financeiro e Agenda
+                          </td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs">
+                            Financeiro, Agenda e fluxos automáticos
+                          </td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs">
+                            Financeiro, Agenda e sub-agentes
+                          </td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs font-semibold text-success">
+                            Financeiro, Agenda e sub-agentes
                           </td>
                         </tr>
 
                         {/* Funcionalidades a partir do Básico */}
                         <tr>
+                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Automação via WhatsApp</td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Somente app/Chat IA</td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5 text-xs">
+                            Financeiro/Agenda via canal compartilhado
+                          </td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Completa para fluxos</td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Completa + número próprio</td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs font-semibold text-success">
+                            Completa + priorização
+                          </td>
+                        </tr>
+                        <tr>
                           <td className="px-4 sm:px-6 py-4 text-sm text-text">Exportação CSV/PDF</td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
-                            <Check className="w-5 h-5 text-success mx-auto" />
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="px-4 sm:px-6 py-4 text-sm text-text">Automação via WhatsApp</td>
-                          <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <Check className="w-5 h-5 text-success mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <Check className="w-5 h-5 text-success mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
@@ -569,10 +692,13 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                            <X className="w-5 h-5 text-text-muted mx-auto" />
+                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <Check className="w-5 h-5 text-success mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
@@ -584,10 +710,13 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                            <X className="w-5 h-5 text-text-muted mx-auto" />
+                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <Check className="w-5 h-5 text-success mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
@@ -601,10 +730,13 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                            <X className="w-5 h-5 text-text-muted mx-auto" />
+                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <Check className="w-5 h-5 text-success mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
@@ -618,10 +750,13 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                            <X className="w-5 h-5 text-text-muted mx-auto" />
+                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <Check className="w-5 h-5 text-success mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
@@ -635,10 +770,13 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                            <X className="w-5 h-5 text-text-muted mx-auto" />
+                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <Check className="w-5 h-5 text-success mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
@@ -652,10 +790,13 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                            <X className="w-5 h-5 text-text-muted mx-auto" />
+                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <Check className="w-5 h-5 text-success mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
@@ -669,10 +810,13 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                            <X className="w-5 h-5 text-text-muted mx-auto" />
+                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <Check className="w-5 h-5 text-success mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center text-xs font-semibold text-success">
@@ -686,10 +830,13 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                            <X className="w-5 h-5 text-text-muted mx-auto" />
+                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
@@ -701,10 +848,13 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                            <X className="w-5 h-5 text-text-muted mx-auto" />
+                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
@@ -716,10 +866,13 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                            <X className="w-5 h-5 text-text-muted mx-auto" />
+                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
@@ -731,10 +884,13 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                            <X className="w-5 h-5 text-text-muted mx-auto" />
+                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
@@ -746,10 +902,13 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                            <X className="w-5 h-5 text-text-muted mx-auto" />
+                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
@@ -761,10 +920,13 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                            <X className="w-5 h-5 text-text-muted mx-auto" />
+                          </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5">
+                          <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
                           <td className="px-4 sm:px-6 py-4 text-center">
@@ -780,10 +942,9 @@ const Planos = () => {
                           <td className="px-4 sm:px-6 py-4 text-center">
                             <X className="w-5 h-5 text-text-muted mx-auto" />
                           </td>
-                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Básico</td>
-                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5 text-xs">
-                            Intermediário
-                          </td>
+                          <td className="px-4 sm:px-6 py-4 text-center bg-subtle-5 text-xs">Básico</td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Intermediário</td>
+                          <td className="px-4 sm:px-6 py-4 text-center text-xs">Intermediário</td>
                           <td className="px-4 sm:px-6 py-4 text-center text-xs font-semibold text-success">
                             Avançado
                           </td>
@@ -1015,7 +1176,7 @@ const Planos = () => {
                     Posso usar o Meu Agente sem número próprio?
                   </AccordionTrigger>
                   <AccordionContent className="px-3 pb-3 text-sm text-text-muted leading-relaxed">
-                    Sim, no <strong>Free</strong> e no <strong>Básico</strong> o atendimento ocorre na infraestrutura do Meu Agente. Nos planos Business e Premium você tem um número de WhatsApp próprio.
+                    Sim. Nos planos <strong>Free</strong>, <strong>Lite</strong> e <strong>Básico</strong> o atendimento ocorre na infraestrutura do Meu Agente (no Lite já via WhatsApp em canal compartilhado). Nos planos Business e Premium você tem um número de WhatsApp próprio.
                   </AccordionContent>
                 </AccordionItem>
 

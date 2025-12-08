@@ -41,7 +41,7 @@ const FAQ = () => {
       {
         question: "Posso usar sem número próprio?",
         answer:
-          "Sim. No plano Free e Básico, você opera manualmente via app. Nos planos Business e Premium, oferecemos número WhatsApp dedicado com infraestrutura completa e implantação inclusa.",
+          "Sim. Nos planos Free, Lite e Básico você opera pelo app/Chat IA e, no Lite, também via WhatsApp em canal compartilhado (sem número próprio). Nos planos Business e Premium, oferecemos número WhatsApp dedicado com infraestrutura completa e implantação inclusa.",
       },
       {
         question: "O Meu Agente funciona em qualquer dispositivo?",
@@ -51,19 +51,19 @@ const FAQ = () => {
       {
         question: "Há limite de usuários por conta?",
         answer:
-          "No Free e Básico, apenas 1 usuário. No Business, até 5 usuários. No Premium, usuários ilimitados. Cada usuário tem seu próprio acesso ao app e pode interagir com os agentes.",
+          "No Free, Lite e Básico, apenas 1 usuário. No Business, até 5 usuários. No Premium, usuários ilimitados. Cada usuário tem seu próprio acesso ao app e pode interagir com os agentes.",
       },
     ],
     planos: [
       {
         question: "Quais são as diferenças entre os planos?",
         answer:
-          "Free: exploratório, manual, sem exportação. Básico: automação via WhatsApp, exportações CSV/PDF, lançamentos manuais. Business: número dedicado, implantação, suporte 24/7, sub-agentes (SDR, Marketing, Dev, Vídeo). Premium: tudo do Business + agentes exclusivos, backups off-site, pesquisa avançada.",
+          "Free: exploratório, sem automação fora do app, websearch/scrape básicos (manual/Chat IA). Lite: tudo do Free + Agente Financeiro e Agendamento no WhatsApp (áudio/foto) em canal compartilhado, sem exportação. Básico: tudo do Lite + automações completas via WhatsApp, exportações CSV/PDF, websearch/scrape intermediário. Business: número dedicado, implantação, suporte 24/7, sub-agentes (SDR, Marketing, Dev, Vídeo). Premium: tudo do Business + agentes exclusivos, backups off-site, pesquisa/extração avançada.",
       },
       {
         question: "Como funciona a cobrança?",
         answer:
-          "Todos os planos são cobrados mensalmente. Planos Business e Premium têm taxa de Treinamento da IA e Manutenção R$ 149,00/hr, somente quando solicitado para suporte técnico avançado e customizações além do escopo padrão.",
+          "Planos mensais e anuais (anual com 1 mês grátis – paga 11 de 12). Planos Business e Premium têm taxa de Treinamento da IA e Manutenção R$ 149,00/hr, somente quando solicitado para suporte técnico avançado e customizações além do escopo padrão.",
       },
       {
         question: "Posso cancelar a qualquer momento?",
@@ -95,12 +95,12 @@ const FAQ = () => {
       {
         question: "Quantas mensagens posso enviar?",
         answer:
-          "Não há limite rígido de mensagens nos planos pagos, mas seguimos as boas práticas do WhatsApp para evitar bloqueios. Nos planos Free e Básico, operações são mais limitadas.",
+          "Não há limite rígido de mensagens nos planos pagos, mas seguimos as boas práticas do WhatsApp para evitar bloqueios. No Free/Lite/Básico operamos com limites e salvaguardas maiores; em Business e Premium há mais capacidade e priorização.",
       },
       {
         question: "Os agentes funcionam 24/7?",
         answer:
-          "Sim! Nos planos Business e Premium, os agentes operam 24 horas por dia, 7 dias por semana, respondendo instantaneamente às suas solicitações.",
+          "Sim! No Lite, Agente Financeiro e Agendamento respondem 24/7 via WhatsApp em canal compartilhado. Nos planos Business e Premium, todos os agentes (incluindo sub-agentes) operam 24 horas por dia, 7 dias por semana, com priorização de fila.",
       },
       {
         question: "Posso criar categorias financeiras personalizadas?",
@@ -115,7 +115,7 @@ const FAQ = () => {
       {
         question: "Posso agendar compromissos recorrentes?",
         answer:
-          "Sim! Com o Agente de Agendamento (Básico/Business/Premium), você pode criar eventos recorrentes (diários, semanais, mensais) integrados ao Google Calendar.",
+          "Sim! No Lite você já agenda via WhatsApp (áudio/foto). A partir do Básico, habilitamos fluxos completos e recorrência integrada ao Google Calendar/Drive/Tasks, disponível também em Business e Premium.",
       },
     ],
     segurança: [
@@ -139,7 +139,7 @@ const FAQ = () => {
       {
         question: "Como exporto meus dados?",
         answer:
-          "Nos planos pagos, você pode exportar relatórios em CSV, PDF ou JSON diretamente via comando no WhatsApp ou pelo app web. No plano Free, não há exportação disponível.",
+          "A partir do plano Básico, você pode exportar relatórios em CSV, PDF ou JSON diretamente via comando no WhatsApp ou pelo app web. Nos planos Free e Lite, não há exportação disponível.",
       },
       {
         question: "Vocês fazem scraping de sites proibidos?",
@@ -164,7 +164,7 @@ const FAQ = () => {
       {
         question: "Qual o prazo para suporte responder?",
         answer:
-          "Planos Free e Básico não incluem suporte. Business e Premium têm suporte prioritário 24/7 com SLA de 2 horas para primeira resposta. Premium tem prioridade máxima na fila.",
+          "Planos Free, Lite e Básico não incluem suporte prioritário. Business e Premium têm suporte 24/7 com SLA de 2 horas para primeira resposta. Premium tem prioridade máxima na fila.",
       },
       {
         question: "Consigo importar dados de outro sistema?",

@@ -29,7 +29,7 @@ import {
 } from "lucide-react";
 import SEO from "@/components/SEO";
 import { createUserGuideHowToSchema, createFAQPageSchema } from "@/lib/seo";
-import guiaMarkdown from "../../docs/guia_meu_agente.md?raw";
+import guiaMarkdown from "../../docs/docs-site/guia_meu_agente.md?raw";
 
 type Heading = {
   title: string;

@@ -8,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Home, ChevronRight, ShieldCheck, FileText, Clock, Scale } from "lucide-react";
 import SEO from "@/components/SEO";
-import termosDeUsoMarkdown from "../../docs/termos-de-uso.md?raw";
+import termosDeUsoMarkdown from "../../docs/docs-site/termos-de-uso.md?raw";
 
 const TermosDeUso = () => {
   const [activeHeading, setActiveHeading] = useState<string>("");

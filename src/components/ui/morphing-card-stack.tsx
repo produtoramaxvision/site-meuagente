@@ -27,12 +27,32 @@ const tierColorMap: Record<string, { bg: string; text: string; border: string }>
     text: "text-emerald-600 dark:text-emerald-400",
     border: "border border-emerald-500/30",
   },
+  "Todos os planos (avançado no Premium)": {
+    bg: "bg-emerald-500/15",
+    text: "text-emerald-600 dark:text-emerald-400",
+    border: "border border-emerald-500/30",
+  },
+  "Free (app/Chat IA) • Lite+ no WhatsApp": {
+    bg: "bg-emerald-500/15",
+    text: "text-emerald-600 dark:text-emerald-400",
+    border: "border border-emerald-500/30",
+  },
+  "Lite/Básico/Business/Premium": {
+    bg: "bg-blue-500/15",
+    text: "text-blue-600 dark:text-blue-400",
+    border: "border border-blue-500/30",
+  },
   "Básico/Business/Premium": {
     bg: "bg-blue-500/15",
     text: "text-blue-600 dark:text-blue-400",
     border: "border border-blue-500/30",
   },
   "Business/Premium": {
+    bg: "bg-purple-500/15",
+    text: "text-purple-600 dark:text-purple-400",
+    border: "border border-purple-500/30",
+  },
+  "Business/Premium (cota maior no Premium)": {
     bg: "bg-purple-500/15",
     text: "text-purple-600 dark:text-purple-400",
     border: "border border-purple-500/30",
