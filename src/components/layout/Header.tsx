@@ -6,14 +6,24 @@ import { AnimatedThemeToggler } from "@/components/AnimatedThemeToggler";
 const Header = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const navigation = [
-    { name: "Início", href: "/" },
-    { name: "Como Funciona", href: "/como-funciona" },
-    { name: "Planos", href: "/planos" },
-    { name: "Blog", href: "/blog" },
-    { name: "FAQ", href: "/faq" },
-    { name: "Contato", href: "/contato" },
-  ];
+  const isOfferPage = typeof window !== "undefined" && window.location.pathname.startsWith("/oferta");
+
+  const navigation = isOfferPage
+    ? [
+        { name: "Início", href: "#top" },
+        { name: "Como Funciona", href: "#como-funciona" },
+        { name: "Provas", href: "#provas" },
+        { name: "Planos", href: "#pricing" },
+        { name: "FAQ", href: "#faq" },
+      ]
+    : [
+        { name: "Início", href: "/" },
+        { name: "Como Funciona", href: "/como-funciona" },
+        { name: "Planos", href: "/planos" },
+        { name: "Blog", href: "/blog" },
+        { name: "FAQ", href: "/faq" },
+        { name: "Contato", href: "/contato" },
+      ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/50 bg-background/80 backdrop-blur-md">
@@ -101,6 +111,7 @@ const Header = () => {
                 key={item.name}
                 href={item.href}
                 className="block px-4 py-2 text-sm font-medium text-text-muted hover:text-text hover:bg-surface-2 rounded-lg transition-colors"
+                onClick={() => setMobileMenuOpen(false)}
               >
                 {item.name}
               </a>

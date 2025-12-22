@@ -48,19 +48,19 @@ const SalesPage = () => {
       />
 
       {/* Hero Section */}
-      <section className="relative py-20 sm:py-24 overflow-hidden bg-gradient-to-br from-surface via-background to-surface/80">
+      <section id="top" className="relative pt-2 sm:pt-4 pb-16 sm:pb-20 overflow-hidden bg-gradient-to-br from-surface via-background to-surface/80">
         <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,#8080800b_1px,transparent_1px),linear-gradient(to_bottom,#8080800b_1px,transparent_1px)] bg-[size:14px_24px]" />
         <div className="pointer-events-none absolute inset-0 opacity-40 mix-blend-screen">
             <div className="bg-[radial-gradient(circle_at_top,_rgba(125,211,252,0.10),_transparent_60%)]" />
         </div>
 
-        <div className="relative z-10 max-w-5xl mx-auto text-center px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <Badge 
             variant="outline" 
             className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-background/80 px-3 py-1 text-xs font-medium text-text-muted mb-6"
           >
             <Sparkles className="h-3 w-3 icon-accent" />
-            <span>Nova Tecnologia 2025</span>
+            <span>Tenha sua própria agência de Inteligência Artificial</span>
           </Badge>
           
           <h1 className="text-balance text-4xl sm:text-5xl lg:text-7xl font-extrabold tracking-tight mb-8 leading-tight">
@@ -105,8 +105,8 @@ const SalesPage = () => {
       </section>
 
       {/* Pain Section */}
-      <section className="py-20 sm:py-24 bg-surface/30 border-y border-border/60">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-16 sm:py-24 bg-surface/30 border-y border-border/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-10 justify-center">
             <div className="p-3 bg-red-500/10 rounded-full">
                 <XCircle className="w-6 h-6 text-red-500" />
@@ -150,8 +150,8 @@ const SalesPage = () => {
       </section>
 
       {/* Mechanism Section */}
-      <section className="py-24 px-4 md:px-6 lg:px-8 bg-background">
-        <div className="max-w-6xl mx-auto">
+      <section id="como-funciona" className="py-16 sm:py-24 bg-background scroll-mt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <Badge 
                 variant="outline" 
@@ -215,17 +215,17 @@ const SalesPage = () => {
       </section>
 
       {/* Proof Section */}
-      <ProofSection />
+      <ProofSection id="provas" />
 
       {/* Offer Section */}
-      <section id="pricing" className="py-24 px-4 md:px-6 relative overflow-hidden">
+      <section id="pricing" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-24">
         <div className="absolute inset-0 bg-surface/30 z-0" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl h-full pointer-events-none opacity-30">
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-[120px]" />
             <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[100px]" />
         </div>
 
-        <div className="max-w-7xl mx-auto relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16 space-y-4">
             <h3 className="text-3xl md:text-5xl font-bold text-text">
               Escolha o plano ideal para sua escala
@@ -410,9 +410,9 @@ const SalesPage = () => {
         </div>
       </section>
 
-      {/* Objections Section */}
-      <section className="py-24 px-4 md:px-6 bg-background border-y border-border/60">
-        <div className="max-w-3xl mx-auto">
+      {/* FAQ Section - Unified */}
+      <section id="faq" className="py-16 sm:py-24 bg-background border-y border-border/60 scroll-mt-24">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center gap-3 mb-10">
             <Shield className="w-8 h-8 text-brand-500" />
             <h3 className="text-2xl md:text-3xl font-bold text-center text-text">
@@ -441,9 +441,21 @@ const SalesPage = () => {
               {
                 q: "E se eu não gostar?",
                 a: "Você pode cancelar a qualquer momento. Sem contratos de fidelidade forçados nos planos mensais."
+              },
+              { 
+                q: "Preciso de um número novo?", 
+                a: "No plano Business e Premium, nós fornecemos um número oficial dedicado. No Free/Básico, você usa nossa infraestrutura compartilhada ou seu app." 
+              },
+              { 
+                q: "Funciona para clínicas e consultórios?", 
+                a: "Perfeitamente. O Agente de Agendamento e Confirmação reduz o no-show drasticamente." 
+              },
+              { 
+                q: "Vocês fazem spam?", 
+                a: "Jamais. Só enviamos mensagens para quem entrou em contato ou deu opt-in (consentimento), seguindo a LGPD." 
               }
             ].map((item, i) => (
-              <AccordionItem key={i} value={`item-${i}`} className="bg-surface border border-border/60 rounded-xl px-4 shadow-adaptive transition-all hover:border-brand-500/30">
+              <AccordionItem key={i} value={`faq-${i}`} className="bg-surface border border-border/60 rounded-xl px-4 shadow-adaptive transition-all hover:border-brand-500/30">
                 <AccordionTrigger className="text-left font-medium text-lg py-4 hover:no-underline hover:text-brand-600 transition-colors">{item.q}</AccordionTrigger>
                 <AccordionContent className="text-text-muted text-base pb-4 leading-relaxed">
                   {item.a}
@@ -455,8 +467,8 @@ const SalesPage = () => {
       </section>
 
       {/* Action Plan Section */}
-      <section className="py-24 px-4 md:px-6 bg-surface/30">
-        <div className="max-w-4xl mx-auto">
+      <section className="py-16 sm:py-24 bg-surface/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h3 className="text-2xl md:text-3xl font-bold text-center mb-12 text-text">🚀 Plano de Ação Rápida</h3>
           
           <div className="overflow-hidden rounded-2xl border border-border/60 shadow-lg bg-surface">
@@ -497,9 +509,9 @@ const SalesPage = () => {
       </section>
 
       {/* Risk & Urgency Section */}
-      <section className="py-24 px-4 md:px-6 bg-section-dark text-white relative overflow-hidden">
+      <section className="py-16 sm:py-24 bg-section-dark text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-black z-0" />
-        <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-16 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 lg:gap-16 relative z-10">
           <div>
             <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
               <Lock className="w-6 h-6 text-emerald-400" />
@@ -539,29 +551,6 @@ const SalesPage = () => {
               </p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-24 px-4 md:px-6 bg-background">
-        <div className="max-w-3xl mx-auto">
-          <h3 className="text-2xl md:text-3xl font-bold text-center mb-12 text-text">❓ Perguntas Frequentes</h3>
-          <Accordion type="single" collapsible className="w-full space-y-4">
-            {[
-              { q: "Preciso de um número novo?", a: "No plano Business e Premium, nós fornecemos um número oficial dedicado. No Free/Básico, você usa nossa infraestrutura compartilhada ou seu app." },
-              { q: "O Agente atende fora do horário comercial?", a: "Sim! Ele trabalha 24 horas por dia, 7 dias por semana, sem cobrar hora extra." },
-              { q: "Posso intervir na conversa?", a: "Claro. Você tem controle total e pode assumir o chat sempre que desejar." },
-              { q: "Funciona para clínicas e consultórios?", a: "Perfeitamente. O Agente de Agendamento e Confirmação reduz o no-show drasticamente." },
-              { q: "Tem fidelidade?", a: "Não. Você é livre para cancelar ou mudar de plano quando quiser." },
-              { q: "Vocês fazem spam?", a: "Jamais. Só enviamos mensagens para quem entrou em contato ou deu opt-in (consentimento), seguindo a LGPD." },
-              { q: "O que acontece no Plano Free?", a: "Você tem acesso ao App e Agentes manuais (Financeiro, Busca) para organizar sua vida, sem automação de WhatsApp." }
-            ].map((item, i) => (
-              <AccordionItem key={i} value={`faq-${i}`} className="border-b border-border/60">
-                <AccordionTrigger className="text-left font-medium hover:text-brand-600 transition-colors py-4">{item.q}</AccordionTrigger>
-                <AccordionContent className="text-text-muted pb-4">{item.a}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
         </div>
       </section>
 

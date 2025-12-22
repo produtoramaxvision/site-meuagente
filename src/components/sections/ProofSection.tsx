@@ -3,7 +3,11 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Clock, TrendingUp, CheckCircle2, Quote } from "lucide-react";
 
-const ProofSection = () => {
+type ProofSectionProps = {
+  id?: string;
+};
+
+const ProofSection = ({ id }: ProofSectionProps) => {
   const scrollToPricing = () => {
     const element = document.getElementById("pricing");
     if (element) {
@@ -12,10 +16,10 @@ const ProofSection = () => {
   };
 
   return (
-    <section className="relative py-24 sm:py-32 bg-[#1A1A1A] overflow-hidden">
+    <section id={id} className="relative py-24 sm:py-32 bg-[#1A1A1A] overflow-hidden scroll-mt-24">
       {/* Background Elements */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_rgba(16,185,129,0.05),_transparent_50%)]" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(139,92,246,0.05),_transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_left,_rgba(16,185,129,0.03),_transparent_50%)]" />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
@@ -40,8 +44,8 @@ const ProofSection = () => {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch mb-16">
           {/* Testimonial Card (Left) */}
           <div className="relative group h-full">
-            <div className="absolute -inset-1 bg-gradient-to-br from-purple-600/30 to-brand-500/30 rounded-[2rem] blur-xl opacity-50 group-hover:opacity-75 transition duration-500" />
-            <Card className="relative h-full bg-gradient-to-br from-[#2D2438] to-[#1F1A26] border-white/5 p-8 sm:p-12 rounded-[2rem] flex flex-col justify-between overflow-hidden">
+            <div className="absolute -inset-1 bg-gradient-to-br from-emerald-600/20 to-brand-500/20 rounded-[2rem] blur-xl opacity-50 group-hover:opacity-75 transition duration-500" />
+            <Card className="relative h-full bg-gradient-to-br from-[#1F2937] to-[#111827] border-white/5 p-8 sm:p-12 rounded-[2rem] flex flex-col justify-between overflow-hidden">
               {/* Quote Icon Background */}
               <Quote className="absolute top-8 right-8 w-24 h-24 text-white/5 rotate-12" />
               
@@ -52,7 +56,7 @@ const ProofSection = () => {
               </div>
 
               <div className="flex items-center gap-4 relative z-10 mt-auto">
-                <div className="h-14 w-14 rounded-full bg-gradient-to-br from-purple-500 to-brand-500 flex items-center justify-center text-white font-bold text-xl shadow-lg ring-4 ring-[#2D2438]">
+                <div className="h-14 w-14 rounded-full bg-gradient-to-br from-emerald-500 to-brand-500 flex items-center justify-center text-white font-bold text-xl shadow-lg ring-4 ring-[#1F2937]">
                   RS
                 </div>
                 <div>
@@ -91,8 +95,8 @@ const ProofSection = () => {
 
             {/* Stat 3 (Full Width) */}
             <Card className="bg-[#262626] border-white/5 p-8 rounded-[1.5rem] hover:bg-[#2A2A2A] transition-colors group flex flex-col sm:flex-row items-start sm:items-center gap-6">
-              <div className="p-4 bg-purple-500/10 w-fit rounded-xl group-hover:scale-110 transition-transform duration-300 shrink-0">
-                <CheckCircle2 className="w-10 h-10 text-purple-400" />
+              <div className="p-4 bg-emerald-500/10 w-fit rounded-xl group-hover:scale-110 transition-transform duration-300 shrink-0">
+                <CheckCircle2 className="w-10 h-10 text-emerald-400" />
               </div>
               <div>
                 <div className="text-5xl font-bold text-white mb-2">0%</div>
