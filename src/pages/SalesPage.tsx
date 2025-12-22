@@ -19,7 +19,6 @@ import {
   Shield,
   Zap,
   Users,
-  Lock,
   ArrowRight,
   XCircle,
   Bot,
@@ -30,25 +29,32 @@ import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
 import FinalCTASection from "@/components/sections/FinalCTASection";
 import ProofSection from "@/components/sections/ProofSection";
+import SalesPageHeader from "@/components/layout/SalesPageHeader";
+import RiskUrgencySection from "@/components/sections/RiskUrgencySection";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
 
 const SalesPage = () => {
-  const scrollToPricing = () => {
-    const element = document.getElementById("pricing");
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
+  const scrollToPricing = () => scrollToSection("pricing");
+
   return (
-    <div className="min-h-screen bg-background text-foreground font-sans">
-      <SEO
-        title="Meu Agente - Equipe de Vendas e Atendimento 24/7"
-        description="Automatize qualificação de leads, agendamentos e financeiro com Agentes de IA que falam, pensam e vendem como seus melhores funcionários."
-        canonicalUrl="/oferta"
-      />
+    <>
+      <SalesPageHeader onNavigate={scrollToSection} />
+      <div className="min-h-screen bg-background text-foreground font-sans">
+        <SEO
+          title="Meu Agente - Equipe de Vendas e Atendimento 24/7"
+          description="Automatize qualificação de leads, agendamentos e financeiro com Agentes de IA que falam, pensam e vendem como seus melhores funcionários."
+          canonicalUrl="/oferta"
+        />
 
       {/* Hero Section */}
-      <section id="top" className="relative pt-2 sm:pt-4 pb-16 sm:pb-20 overflow-hidden bg-gradient-to-br from-surface via-background to-surface/80">
+      <section id="inicio" className="relative pt-2 sm:pt-4 pb-16 sm:pb-20 overflow-hidden bg-gradient-to-br from-surface via-background to-surface/80">
         <div className="pointer-events-none absolute inset-0 z-0 bg-[linear-gradient(to_right,#8080800b_1px,transparent_1px),linear-gradient(to_bottom,#8080800b_1px,transparent_1px)] bg-[size:14px_24px]" />
         <div className="pointer-events-none absolute inset-0 opacity-40 mix-blend-screen">
             <div className="bg-[radial-gradient(circle_at_top,_rgba(125,211,252,0.10),_transparent_60%)]" />
@@ -150,7 +156,7 @@ const SalesPage = () => {
       </section>
 
       {/* Mechanism Section */}
-      <section id="como-funciona" className="py-16 sm:py-24 bg-background scroll-mt-24">
+      <section id="como-funciona" className="py-16 sm:py-24 bg-background">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <Badge 
@@ -215,10 +221,10 @@ const SalesPage = () => {
       </section>
 
       {/* Proof Section */}
-      <ProofSection id="provas" />
+      <ProofSection />
 
       {/* Offer Section */}
-      <section id="pricing" className="py-16 sm:py-24 relative overflow-hidden scroll-mt-24">
+      <section id="pricing" className="py-16 sm:py-24 relative overflow-hidden">
         <div className="absolute inset-0 bg-surface/30 z-0" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-7xl h-full pointer-events-none opacity-30">
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-brand-500/10 rounded-full blur-[120px]" />
@@ -410,62 +416,6 @@ const SalesPage = () => {
         </div>
       </section>
 
-      {/* FAQ Section - Unified */}
-      <section id="faq" className="py-16 sm:py-24 bg-background border-y border-border/60 scroll-mt-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center gap-3 mb-10">
-            <Shield className="w-8 h-8 text-brand-500" />
-            <h3 className="text-2xl md:text-3xl font-bold text-center text-text">
-              Quebrando Suas Dúvidas
-            </h3>
-          </div>
-
-          <Accordion type="single" collapsible className="w-full space-y-4">
-            {[
-              {
-                q: "Vai parecer um robô falando?",
-                a: "Não. Nossos agentes usam Processamento de Linguagem Natural avançado. Eles usam emojis, gírias (se você quiser) e entendem áudios. É indistinguível de um atendimento humano de alta qualidade."
-              },
-              {
-                q: "Tenho medo de ser bloqueado no WhatsApp.",
-                a: "Nós usamos a API Oficial do WhatsApp Business. Seguimos rigorosamente as políticas da Meta. Sua segurança é nossa prioridade número 1."
-              },
-              {
-                q: "É difícil de configurar?",
-                a: "Nos planos Business e Premium, nós fazemos a implantação para você. Nos planos iniciais, é plug-and-play: criou a conta, começou a usar."
-              },
-              {
-                q: "Serve para o meu negócio?",
-                a: "Se você vende serviços, agendamentos (clínicas, consultorias) ou software, sim. Se você precisa qualificar leads antes de vender, o Meu Agente é perfeito."
-              },
-              {
-                q: "E se eu não gostar?",
-                a: "Você pode cancelar a qualquer momento. Sem contratos de fidelidade forçados nos planos mensais."
-              },
-              { 
-                q: "Preciso de um número novo?", 
-                a: "No plano Business e Premium, nós fornecemos um número oficial dedicado. No Free/Básico, você usa nossa infraestrutura compartilhada ou seu app." 
-              },
-              { 
-                q: "Funciona para clínicas e consultórios?", 
-                a: "Perfeitamente. O Agente de Agendamento e Confirmação reduz o no-show drasticamente." 
-              },
-              { 
-                q: "Vocês fazem spam?", 
-                a: "Jamais. Só enviamos mensagens para quem entrou em contato ou deu opt-in (consentimento), seguindo a LGPD." 
-              }
-            ].map((item, i) => (
-              <AccordionItem key={i} value={`faq-${i}`} className="bg-surface border border-border/60 rounded-xl px-4 shadow-adaptive transition-all hover:border-brand-500/30">
-                <AccordionTrigger className="text-left font-medium text-lg py-4 hover:no-underline hover:text-brand-600 transition-colors">{item.q}</AccordionTrigger>
-                <AccordionContent className="text-text-muted text-base pb-4 leading-relaxed">
-                  {item.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
-
       {/* Action Plan Section */}
       <section className="py-16 sm:py-24 bg-surface/30">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -509,54 +459,69 @@ const SalesPage = () => {
       </section>
 
       {/* Risk & Urgency Section */}
-      <section className="py-16 sm:py-24 bg-section-dark text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-black z-0" />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 lg:gap-16 relative z-10">
-          <div>
-            <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
-              <Lock className="w-6 h-6 text-emerald-400" />
-              RISCO ZERO
+      <RiskUrgencySection />
+
+      {/* FAQ Section - Unified */}
+      <section id="faq" className="py-16 sm:py-24 bg-background border-y border-border/60">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center gap-3 mb-10">
+            <Shield className="w-8 h-8 text-brand-500" />
+            <h3 className="text-2xl md:text-3xl font-bold text-center text-text">
+              Quebrando Suas Dúvidas
             </h3>
-            <p className="text-white/80 mb-6 text-lg">Você não precisa acreditar na nossa palavra.</p>
-            <ol className="space-y-6 text-white/70 list-decimal pl-5">
-              <li className="pl-2">
-                <strong className="text-white block mb-1">Comece com o Plano Free:</strong> 
-                R$ 0,00. Teste o Agente Financeiro e Web Search sem gastar um centavo.
-              </li>
-              <li className="pl-2">
-                <strong className="text-white block mb-1">Segurança Bancária:</strong> 
-                Seus dados são protegidos com criptografia de ponta a ponta e conformidade total com a LGPD.
-              </li>
-            </ol>
-            <p className="mt-8 font-medium text-white p-4 bg-white/5 rounded-lg border border-white/10">
-              Nós assumimos o risco técnico. Você colhe o lucro operacional.
-            </p>
           </div>
 
-          <div>
-            <h3 className="text-2xl font-bold mb-6 flex items-center gap-3">
-              <Clock className="w-6 h-6 text-amber-400" />
-              JANELA DE OPORTUNIDADE
-            </h3>
-            <p className="text-white/80 mb-6 text-lg">
-              O mercado está mudando rápido. Seus concorrentes já estão automatizando o atendimento.
-            </p>
-            <p className="text-white/80 mb-8">
-              Continuar atendendo manualmente é como tentar correr uma Fórmula 1 de bicicleta. Você vai ficar para trás.
-            </p>
-            <div className="bg-amber-500/10 border border-amber-500/30 p-6 rounded-xl backdrop-blur-sm">
-              <p className="text-amber-200 text-sm leading-relaxed">
-                <strong className="text-amber-400 block mb-2 uppercase tracking-wide text-xs">Atenção</strong> 
-                Nossa capacidade de Implantação Assistida (Plano Business) é limitada a 20 novas empresas por semana para garantir qualidade máxima.
-              </p>
-            </div>
-          </div>
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            {[
+              {
+                q: "Vai parecer um robô falando?",
+                a: "Não. Nossos agentes usam Processamento de Linguagem Natural avançado. Eles usam emojis, gírias (se você quiser) e entendem áudios. É indistinguível de um atendimento humano de alta qualidade."
+              },
+              {
+                q: "Tenho medo de ser bloqueado no WhatsApp.",
+                a: "Nós usamos a API Oficial do WhatsApp Business. Seguimos rigorosamente as políticas da Meta. Sua segurança é nossa prioridade número 1."
+              },
+              {
+                q: "É difícil de configurar?",
+                a: "Nos planos Business e Premium, nós fazemos a implantação para você. Nos planos iniciais, é plug-and-play: criou a conta, começou a usar."
+              },
+              {
+                q: "Serve para o meu negócio?",
+                a: "Se você vende serviços, agendamentos (clínicas, consultorias) ou software, sim. Se você precisa qualificar leads antes de vender, o Meu Agente é perfeito."
+              },
+              {
+                q: "E se eu não gostar?",
+                a: "Você pode cancelar a qualquer momento. Sem contratos de fidelidade forçados nos planos mensais."
+              },
+              {
+                q: "Preciso de um número novo?",
+                a: "No plano Business e Premium, nós fornecemos um número oficial dedicado. No Free/Básico, você usa nossa infraestrutura compartilhada ou seu app."
+              },
+              {
+                q: "Funciona para clínicas e consultórios?",
+                a: "Perfeitamente. O Agente de Agendamento e Confirmação reduz o no-show drasticamente."
+              },
+              {
+                q: "Vocês fazem spam?",
+                a: "Jamais. Só enviamos mensagens para quem entrou em contato ou deu opt-in (consentimento), seguindo a LGPD."
+              }
+            ].map((item, i) => (
+              <AccordionItem key={i} value={`faq-${i}`} className="bg-surface border border-border/60 rounded-xl px-4 shadow-adaptive transition-all hover:border-brand-500/30">
+                <AccordionTrigger className="text-left font-medium text-lg py-4 hover:no-underline hover:text-brand-600 transition-colors">{item.q}</AccordionTrigger>
+                <AccordionContent className="text-text-muted text-base pb-4 leading-relaxed">
+                  {item.a}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
       {/* Final CTA Section */}
       <FinalCTASection />
     </div>
+    <ScrollToTop threshold={400} />
+    </>
   );
 };
 
