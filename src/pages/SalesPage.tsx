@@ -260,7 +260,7 @@ const SalesPage = () => {
               },
               {
                 name: "Lite",
-                price: "R$ 297",
+                price: "R$ 97,90",
                 period: "/mês",
                 description: "Automação essencial para profissionais liberais.",
                 features: [
@@ -274,7 +274,7 @@ const SalesPage = () => {
               },
               {
                 name: "Básico",
-                price: "R$ 597",
+                price: "R$ 497",
                 period: "/mês",
                 description: "Gestão inteligente para pequenas empresas.",
                 features: [
