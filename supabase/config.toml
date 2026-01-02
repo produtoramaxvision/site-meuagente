@@ -1,1 +1,11 @@
-project_id = "esxmoaxjlvvypxocgudd"
+project_id = "pzoodkjepcarxnawuxoa"
+
+# Asaas webhook - JWT disabled (external webhooks don't have JWT)
+# Security is handled via asaas-access-token header + IP allowlist
+[functions.asaas-webhook]
+verify_jwt = false
+
+# Asaas checkout - JWT disabled (must work for anonymous users on /oferta page)
+# This function creates PaymentLinks for users who are not logged in yet
+[functions.asaas-checkout]
+verify_jwt = false

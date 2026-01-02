@@ -26,6 +26,8 @@ const Contato = lazy(() => import("./pages/Contato"));
 const SobreNos = lazy(() => import("./pages/SobreNos"));
 const GuiaDoUsuario = lazy(() => import("./pages/GuiaDoUsuario"));
 const SalesPage = lazy(() => import("./pages/SalesPage"));
+const SuccessPage = lazy(() => import("./pages/SuccessPage"));
+const CheckoutPage = lazy(() => import("./pages/CheckoutPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -33,10 +35,12 @@ const queryClient = new QueryClient();
 const AppContent = () => {
   const location = useLocation();
   const isSalesPage = location.pathname === "/oferta";
+  const isSuccessPage = location.pathname === "/sucesso";
+  const isCheckoutPage = location.pathname === "/checkout";
 
   return (
     <div className="flex flex-col min-h-screen">
-      {!isSalesPage && <Header />}
+      {!isSalesPage && !isSuccessPage && !isCheckoutPage && <Header />}
       <main className="flex-1">
         <Suspense fallback={<div className="p-8 text-center text-sm text-muted-foreground">Carregando...</div>}>
           <Routes>
@@ -54,12 +58,14 @@ const AppContent = () => {
             <Route path="/trabalhe-conosco" element={<TrabalheConosco />} />
             <Route path="/contato" element={<Contato />} />
             <Route path="/oferta" element={<SalesPage />} />
+            <Route path="/sucesso" element={<SuccessPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
       </main>
-      {!isSalesPage && <Footer />}
+      {!isSalesPage && !isSuccessPage && !isCheckoutPage && <Footer />}
       <Suspense fallback={null}>
         <ChatWidget />
       </Suspense>

@@ -24,6 +24,7 @@ import {
   Bot,
   Sparkles,
   CheckCircle,
+  Loader2,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import SEO from "@/components/SEO";
@@ -32,8 +33,11 @@ import ProofSection from "@/components/sections/ProofSection";
 import SalesPageHeader from "@/components/layout/SalesPageHeader";
 import RiskUrgencySection from "@/components/sections/RiskUrgencySection";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { useAsaasCheckout } from "@/hooks/use-asaas-checkout";
 
 const SalesPage = () => {
+  const { handleCheckout, loading, loadingPlanId } = useAsaasCheckout();
+  
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -42,6 +46,15 @@ const SalesPage = () => {
   };
 
   const scrollToPricing = () => scrollToSection("pricing");
+
+  // Handler para botões de checkout
+  const onPlanClick = (planId: string) => {
+    if (planId === "free") {
+      window.open("https://app.meuagente.api.br/?plan=free", "_blank");
+    } else {
+      handleCheckout(planId, "monthly");
+    }
+  };
 
   return (
     <>
@@ -98,10 +111,20 @@ const SalesPage = () => {
             <Button
               size="lg"
               className="btn-primary-gradient text-lg px-10 h-14 rounded-xl shadow-xl-adaptive transition-all hover:scale-105 hover:shadow-2xl-adaptive group"
-              onClick={scrollToPricing}
+              onClick={() => onPlanClick("business")}
+              disabled={loading && loadingPlanId === "business"}
             >
-              QUERO MINHA EQUIPE DE IA AGORA
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              {loading && loadingPlanId === "business" ? (
+                <>
+                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                  Processando...
+                </>
+              ) : (
+                <>
+                  QUERO MINHA EQUIPE DE IA AGORA
+                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                </>
+              )}
             </Button>
             <span className="text-xs text-text-muted font-medium uppercase tracking-wide opacity-80">
               Não requer cartão de crédito para o plano Free
@@ -245,6 +268,7 @@ const SalesPage = () => {
           <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-6 items-start mb-20">
             {[
               {
+                id: "free",
                 name: "Free",
                 price: "R$ 0",
                 period: "/mês",
@@ -259,6 +283,7 @@ const SalesPage = () => {
                 highlight: false,
               },
               {
+                id: "lite",
                 name: "Lite",
                 price: "R$ 97,90",
                 period: "/mês",
@@ -273,6 +298,7 @@ const SalesPage = () => {
                 highlight: false,
               },
               {
+                id: "basic",
                 name: "Básico",
                 price: "R$ 497",
                 period: "/mês",
@@ -289,6 +315,7 @@ const SalesPage = () => {
                 badge: "RECOMENDADO",
               },
               {
+                id: "business",
                 name: "Business",
                 price: "R$ 997",
                 period: "/mês",
@@ -346,9 +373,17 @@ const SalesPage = () => {
                         ? "btn-primary-gradient shadow-lg" 
                         : "border-border/60 hover:bg-surface-2"
                     }`}
-                    onClick={scrollToPricing}
+                    onClick={() => onPlanClick(plan.id)}
+                    disabled={loading && loadingPlanId === plan.id}
                   >
-                    {plan.cta}
+                    {loading && loadingPlanId === plan.id ? (
+                      <>
+                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                        Processando...
+                      </>
+                    ) : (
+                      plan.cta
+                    )}
                   </Button>
                 </CardContent>
               </Card>
@@ -451,7 +486,11 @@ const SalesPage = () => {
           </div>
 
           <div className="mt-12 text-center">
-            <Button size="lg" className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 h-14 text-lg rounded-xl shadow-lg transition-all hover:scale-105" onClick={scrollToPricing}>
+            <Button 
+              size="lg" 
+              className="bg-emerald-600 hover:bg-emerald-700 text-white px-10 h-14 text-lg rounded-xl shadow-lg transition-all hover:scale-105" 
+              onClick={scrollToPricing}
+            >
               ESCOLHER MEU PLANO AGORA
             </Button>
           </div>
