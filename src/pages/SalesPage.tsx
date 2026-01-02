@@ -26,17 +26,16 @@ import {
   CheckCircle,
   Loader2,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SEO from "@/components/SEO";
 import FinalCTASection from "@/components/sections/FinalCTASection";
 import ProofSection from "@/components/sections/ProofSection";
 import SalesPageHeader from "@/components/layout/SalesPageHeader";
 import RiskUrgencySection from "@/components/sections/RiskUrgencySection";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
-import { useAsaasCheckout } from "@/hooks/use-asaas-checkout";
 
 const SalesPage = () => {
-  const { handleCheckout, loading, loadingPlanId } = useAsaasCheckout();
+  const navigate = useNavigate();
   
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -52,7 +51,7 @@ const SalesPage = () => {
     if (planId === "free") {
       window.open("https://app.meuagente.api.br/?plan=free", "_blank");
     } else {
-      handleCheckout(planId, "monthly");
+      navigate(`/checkout?plan=${planId}&billing=monthly`);
     }
   };
 
@@ -111,20 +110,10 @@ const SalesPage = () => {
             <Button
               size="lg"
               className="btn-primary-gradient text-lg px-10 h-14 rounded-xl shadow-xl-adaptive transition-all hover:scale-105 hover:shadow-2xl-adaptive group"
-              onClick={() => onPlanClick("business")}
-              disabled={loading && loadingPlanId === "business"}
+              onClick={scrollToPricing}
             >
-              {loading && loadingPlanId === "business" ? (
-                <>
-                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                  Processando...
-                </>
-              ) : (
-                <>
-                  QUERO MINHA EQUIPE DE IA AGORA
-                  <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </>
-              )}
+              QUERO MINHA EQUIPE DE IA AGORA
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Button>
             <span className="text-xs text-text-muted font-medium uppercase tracking-wide opacity-80">
               Não requer cartão de crédito para o plano Free
@@ -374,16 +363,8 @@ const SalesPage = () => {
                         : "border-border/60 hover:bg-surface-2"
                     }`}
                     onClick={() => onPlanClick(plan.id)}
-                    disabled={loading && loadingPlanId === plan.id}
                   >
-                    {loading && loadingPlanId === plan.id ? (
-                      <>
-                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                        Processando...
-                      </>
-                    ) : (
-                      plan.cta
-                    )}
+                    {plan.cta}
                   </Button>
                 </CardContent>
               </Card>

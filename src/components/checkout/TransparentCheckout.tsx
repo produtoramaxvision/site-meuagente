@@ -47,7 +47,7 @@ export default function TransparentCheckout() {
   const planName = `Plano ${planId.charAt(0).toUpperCase() + planId.slice(1)}`;
 
   const [loading, setLoading] = useState(false);
-  const [paymentMethod, setPaymentMethod] = useState<"credit-card" | "pix" | "boleto">("credit-card");
+  const [paymentMethod, setPaymentMethod] = useState<"credit-card" | "pix" | "boleto">("pix");
   
   // Form States
   const [formData, setFormData] = useState<CheckoutFormData>({
@@ -259,15 +259,15 @@ export default function TransparentCheckout() {
           <div className="hidden lg:flex items-center gap-2 mb-2">
             <Link to="/oferta" className="flex items-center text-xs text-muted-foreground hover:text-primary transition-colors">
               <ArrowLeft className="h-3 w-3 mr-1" />
-              Voltar para ofertas
+              Voltar
             </Link>
           </div>
 
           <div className="space-y-4">
             <div>
               <div className="flex items-center gap-2 mb-1">
-                <div className="h-6 w-6 bg-primary rounded-md flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-xs">M</span>
+                <div className="h-6 w-6 bg-primary dark:bg-primary-foreground rounded-md flex items-center justify-center">
+                  <img src="/balao-branco.png" alt="Logo" className="h-4 w-4 object-contain" />
                 </div>
                 <span className="font-bold text-lg tracking-tight">Meu Agente</span>
               </div>
@@ -307,6 +307,18 @@ export default function TransparentCheckout() {
                   <h3 className="font-semibold text-sm text-foreground">Pagamento 100% Seguro</h3>
                   <p className="text-xs text-muted-foreground leading-tight">
                     Criptografia SSL de ponta a ponta. Garantia de 7 dias.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-surface border-primary/10 shadow-sm mt-2">
+              <CardContent className="p-3 flex gap-3 items-center">
+                <Lock className="h-8 w-8 text-primary shrink-0" />
+                <div>
+                  <h3 className="font-semibold text-sm text-foreground">Privacidade Garantida</h3>
+                  <p className="text-xs text-muted-foreground leading-tight">
+                    Seus dados protegidos e em total conformidade com a LGPD.
                   </p>
                 </div>
               </CardContent>
@@ -366,7 +378,7 @@ export default function TransparentCheckout() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4 px-4 pb-4">
-              <Tabs defaultValue="credit-card" className="w-full" onValueChange={(v) => setPaymentMethod(v as any)}>
+              <Tabs defaultValue="pix" className="w-full" onValueChange={(v) => setPaymentMethod(v as any)}>
                 <TabsList className="grid w-full grid-cols-3 mb-4 bg-muted/50 p-1 h-9">
                   <TabsTrigger value="credit-card" className="text-xs data-[state=active]:bg-background data-[state=active]:shadow-sm">
                     <CreditCard className="h-3 w-3 mr-1.5" /> Cartão
@@ -416,7 +428,7 @@ export default function TransparentCheckout() {
                     <div>
                       <h3 className="font-semibold text-sm text-foreground">Pagamento via Pix</h3>
                       <p className="text-xs text-muted-foreground">
-                        O QR Code será gerado após confirmar o pedido.
+                        Preencha seus dados pessoais acima e clique em "Gerar Pix" para visualizar o QR Code.
                       </p>
                     </div>
                   </div>
@@ -469,9 +481,11 @@ export default function TransparentCheckout() {
             </CardFooter>
           </Card>
           
-          <div className="text-center text-[10px] text-muted-foreground flex items-center justify-center gap-1.5">
+          <div className="text-center text-[10px] text-muted-foreground flex items-center justify-center gap-2">
             <Lock className="h-2.5 w-2.5" />
             <span>Ambiente 100% seguro.</span>
+            <span className="text-muted-foreground/50">|</span>
+            <span>CNPJ: 38.386.434/0001-44</span>
           </div>
         </div>
       </div>
