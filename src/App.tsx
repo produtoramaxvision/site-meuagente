@@ -9,7 +9,6 @@ import { ThemeProvider } from "next-themes";
 import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 const ChatWidget = lazy(() => import("./components/ChatWidget"));
-import GTM from "./components/GTM";
 import Index from "./pages/Index";
 
 // Rotas secundárias em lazy para reduzir payload inicial (etapa 1 do plano)
@@ -78,7 +77,6 @@ const App = () => (
     <HelmetProvider>
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
         <TooltipProvider>
-          <GTM gtmId={import.meta.env.VITE_GTM_ID} />
           <Toaster />
           <Sonner />
           <BrowserRouter>
