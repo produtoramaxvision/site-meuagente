@@ -4,7 +4,7 @@ interface GTMProps {
   gtmId?: string;
 }
 
-const GTM = ({ gtmId = "GTM-XXXXXXX" }: GTMProps) => {
+const GTM = ({ gtmId = "GTM-NP77J3G4" }: GTMProps) => {
   useEffect(() => {
     if (!gtmId || gtmId === "GTM-XXXXXXX") {
       console.log("GTM não configurado. Adicione GTM_ID nas variáveis de ambiente.");

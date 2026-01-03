@@ -10,6 +10,7 @@ import Header from "./components/layout/Header";
 import Footer from "./components/layout/Footer";
 const ChatWidget = lazy(() => import("./components/ChatWidget"));
 import Index from "./pages/Index";
+import GTM from "./components/GTM";
 
 // Rotas secundárias em lazy para reduzir payload inicial (etapa 1 do plano)
 const TrabalheConosco = lazy(() => import("./pages/TrabalheConosco"));
@@ -39,6 +40,7 @@ const AppContent = () => {
 
   return (
     <div className="flex flex-col min-h-screen">
+      <GTM />
       {!isSalesPage && !isSuccessPage && !isCheckoutPage && <Header />}
       <main className="flex-1">
         <Suspense fallback={<div className="p-8 text-center text-sm text-muted-foreground">Carregando...</div>}>
